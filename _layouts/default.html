@@ -1,0 +1,58 @@
+<html>
+
+<head>
+	<!-- Set site title from config -->
+    <title>{{ site.title }}</title>
+    
+    <!-- Include stylesheet -->
+	<link rel="stylesheet" href="../css/style.css">
+    
+    <!-- Include JS elements -->
+    {% include tableofcontents.html %}
+    {% include mathjax.html %}
+
+</head>
+
+<body>
+    
+    <header>
+		<!-- Header definition -->
+		<div class="container">
+
+			{% include header.html %}
+						
+		</div>
+
+	</header>
+
+	<!-- Structure required for Sticky Sidebar -->
+	<div class="container clearfix">
+
+		<div id="sidebar">
+			<!-- Sidebar definition -->
+			<div class="sidebar__inner">
+				
+				{% include sidebar.html %}
+								
+			</div>
+
+		</div>
+
+		<!-- Include main content -->
+		{% include content.html %}
+		
+	</div>
+
+	<!-- Footer definition -->
+	<footer>
+		
+		{% include footer.html %}
+
+    </footer>
+
+	<!-- Include Sticky Sidebar JS and configuration -->
+    {% include stickysidebar.html %}
+
+</body>
+
+</html>

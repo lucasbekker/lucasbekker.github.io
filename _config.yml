@@ -1,0 +1,4 @@
+title: Master Thesis Project
+description: GPGPU acceleration of the Boltzmann and Navier-stokes Cahn-Hilliard equations
+git_branch: master
+mathjax: true
