@@ -158,23 +158,29 @@ The weak and discretized formulations of the Boltzmann and Navier-Stokes Cahn-Hi
 
 $$
 \begin{array}{lr}
-a( \sum_{j=1}^{N} u_{n}^{j} \psi_{j} ; \psi_{i} ) = b(\psi_{i}) & \forall i \in \left [ 1,N \right ]
+a( \sum_{j=1}^{m} u_{k}^{j} \psi_{j} ; \psi_{i} ) = f(\psi_{i}) & \forall i \in \left [ 1,m \right ]
 \end{array}
 $$
 
   * $a(\cdot \, ; \cdot)$ is the bilinear form.
-  * $u_{n}^{j}$ is the solution at time $n$, on location $j$.
+  * $u_{k}^{j}$ is the solution at time $k$, on location $j$.
   * $\psi_{i}$ is the i *th* test function.
-  * $N$ is the total amount of test functions.
+  * $m$ is the total amount of test functions.
 
 Which can be expressed by the following system of non-linear equations:
 
 $$
-N(\underline{u_{n}}) = \underline{b}
+N(\underline{u_{k}}) = \underline{f}
 $$
 
-With $\underline{u_{n}} = \left [ u_{n}^{1} \,,u_{n}^{2} \,,...\,,u_{n}^{N} \right ]$.
+With $\underline{u_{k}} = \left [ u_{n}^{1} \,,u_{n}^{2} \,,...\,,u_{n}^{m} \right ]$.
 
 This system of non-linear equations needs to be solved for every time step, using the Newton-Raphson method.
 
 #### Newton's method
+
+Applying Newton's method for timestep $k$ results in the following system:
+
+$$
+J_{N}(u_{k,n}) (u_{k,n+1} - u_{k,n}) = - N(u_{k,n}) + f
+$$
