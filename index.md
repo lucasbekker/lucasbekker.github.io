@@ -179,8 +179,10 @@ This system of non-linear equations needs to be solved for every time step, usin
 
 #### Newton's method
 
-Applying Newton's method for timestep $k$ results in the following system:
+Applying Newton's method for timestep $k$ results in a sequence of iterations containing (at iteration $n + 1$) the following system:
 
 $$
-J_{N}(u_{k,n}) (u_{k,n+1} - u_{k,n}) = - N(u_{k,n}) + f
+J_{N}(\underline{u_{k,n}}) (\underline{u_{k,n+1}} - \underline{u_{k,n}}) = - N(\underline{u_{k,n}}) + \underline{f}
 $$
+
+With $n$ being the iteration counter.
