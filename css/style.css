@@ -69,9 +69,10 @@ h1, h2, h3, h4, h5, h6 {
 	}
 
 footer{
+	margin-left: 333px;
 	margin-top: 20px;
-	text-align: center;
-	color: rgba(2, 2, 2, 0.8);
+	text-align: left;
+	color: rgba(2, 2, 2, 0.5);
 	}
 
 footer p{
