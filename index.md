@@ -148,7 +148,7 @@ Install NVIDIA docker: [Instructions](https://lucasbekker.github.io/#docker)
     alias juliagpu='docker run --runtime=nvidia -v $PKG:/pkg -v $PWD:/data -it maleadt/juliagpu'
 
 
-### Background
+### Mathematical background
 
 Simulations based on the Boltzmann or Navier-Stokes Cahn-Hilliard equations are complex and multifaceted. The part that will be accelerated using GPGPU techniques is the solving of systems of non-linear equations.
 
@@ -185,4 +185,15 @@ $$
 J_{N}(\underline{u_{k,n}}) (\underline{u_{k,n+1}} - \underline{u_{k,n}}) = - N(\underline{u_{k,n}}) + \underline{f}
 $$
 
-With $n$ being the iteration counter.
+  * $n$ is the iteration counter.
+  * $J_{N}$ is the Jacobian matrix of $N$.
+
+Which is of the canonical form:
+
+$$
+A\,x=b
+$$
+
+#### Solving
+
+The acceleration of the Boltzmann or Navier-Stokes Cahn-Hilliard equations will focus on improving the performance of the step where the system $A\,x=b$ is solved.
