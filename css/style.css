@@ -25,17 +25,19 @@ body{
 	font-weight:400;
 	}
 		
-/*header{
+/*
+header{
     margin-left: 333px;
 	margin-top: 20px;
 	text-align: left;
 	color: #000000;
-	}*/
+	}
 
 header h1{
 	font-size: 32px;
     color: rgb(2, 2, 2, 0.8)
 	}
+*/
 
 h1, h2, h3, h4, h5, h6 {
     color:rgb(2, 2, 2, 0.8);
@@ -55,6 +57,7 @@ h1, h2, h3, h4, h5, h6 {
 #sidebar{
     position: relative;
 	float: left;
+	margin-top: 10px;
 	width: 300px;
 	color: rgba(2, 2, 2, 0.5);
 	will-change: min-height;
