@@ -14,18 +14,8 @@
 </head>
 
 <body>
-    
-    <header>
-		<!-- Header definition -->
-		<div class="container">
-
-			<!--{% include header.html %}-->
-						
-		</div>
-
-	</header>
-
-	<!-- Structure required for Sticky Sidebar -->
+   
+    <!-- Structure required for Sticky Sidebar -->
 	<div class="container clearfix">
 
 		<div id="sidebar">
@@ -39,8 +29,10 @@
 		</div>
 
 		<!-- Include main content -->
-		{% include content.html %}
-		
+        <div id="content">
+            {{ content }}
+        </div>
+
 	</div>
 
 	<!-- Footer definition -->
@@ -55,4 +47,4 @@
 
 </body>
 
-</html>
+</html> 
