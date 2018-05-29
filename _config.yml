@@ -2,3 +2,8 @@ title: Master Thesis
 description: GPGPU acceleration of the Boltzmann and Navier-stokes Cahn-Hilliard equations
 git_branch: master
 mathjax: true
+
+collections:
+  sections:
+    output: true
+    permalink: /:title

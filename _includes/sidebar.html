@@ -7,5 +7,10 @@
 <!-- Add site description from config -->
 <p>{{ site.description }}</p>
 
+<!-- Add link back to home, if not at home -->
+{% if page.url != "/" %}
+    <h3><a href="../">Home</a></h3>
+{% endif %}
+
 <!-- Add table of contents -->
 <div id="toc"></div>
