@@ -5,9 +5,9 @@
       noBackToTopLinks: false,
       title: '<i>Jump to...</i>',
       minimumHeaders: 3,
-      headers: 'h3, h4', // modified from 'h1, h2, h3, h4, h5, h6'
-      listType: 'ul', // values: [ol|ul]
-      showEffect: 'none', // values: [show|slideDown|fadeIn|none]
+      headers: 'h1, h2, h3, h4, h5, h6',
+      listType: 'ol', // values: [ol|ul]
+      showEffect: 'show', // values: [show|slideDown|fadeIn|none]
       showSpeed: 'slow', // set to 0 to deactivate effect
       classes: { list: '',
                  item: ''
