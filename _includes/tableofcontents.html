@@ -14,10 +14,11 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#toc').toc({ 
-            title: '<h3>Table of content</h3>',
+            title: '<h2>Table of content</h2>',
             listType: 'ul',
-            headers: 'h3, h4',
-            showEffect: 'none'
+            headers: 'h4, h5, h6',
+            showEffect: 'none',
+            minimumHeaders: 1 
         });
     });
 </script>

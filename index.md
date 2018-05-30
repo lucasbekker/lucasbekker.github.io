@@ -9,12 +9,3 @@ The source code of the master thesis project can be found at:
 
 The source code of the documentation can be found at:
 [Documentation](https://github.com/lucasbekker/lucasbekker.github.io)
-
-
-### Topics
-
-#### [Mathematical Background](../Mathematical_background)
-
-#### [CUDA installation](../Cuda_installation)
-
-#### [Julia](../Julia)

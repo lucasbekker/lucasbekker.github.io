@@ -9,8 +9,18 @@
 
 <!-- Add link back to home, if not at home -->
 {% if page.url != "/" %}
-    <h3><a href="../">Home</a></h3>
+    <h1><a href="../">Home</a></h1>
 {% endif %}
 
-<!-- Add table of contents -->
-<div id="toc"></div>
+<!-- Add table of contents, if not at home -->
+{% if page.url != "/" %}
+    <div id="toc"></div>
+{% endif %}
+
+<!-- Add topics -->
+<h2>Topics</h2>
+<ul>
+{% for section in site.sections %}
+    <h4><li><a href="{{ section.url }}">{{ section.title }}</a></li></h4>
+{% endfor %}
+</ul>
