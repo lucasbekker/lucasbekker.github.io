@@ -7,6 +7,9 @@
 <!-- Add site description from config -->
 <p>{{ site.description }}</p>
 
+<!-- Add search box -->
+{% include searchbox.html %}
+
 <!-- Add link back to home, if not at home -->
 {% if page.url != "/" %}
     <h1><a href="../">Home</a></h1>

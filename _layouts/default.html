@@ -2,48 +2,56 @@
 
 <head>
 	<!-- Set site title from config -->
-    <title>{{ site.title }}</title>
-    
+	<title>{{ page.title }}</title>
+
+	<!-- Set favicon -->
+	<link rel="icon" 
+    	type="image/png" 
+    	href="../image/favicon.ico" />
+	
     <!-- Include stylesheet -->
 	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/tipuesearch.css">
     
     <!-- Include JS elements -->
     {% include tableofcontents.html %}
-    {% include mathjax.html %}
+	{% include mathjax.html %}
+
+	<!-- Include Tipue JS if at search page -->
+	{% if page.url == "/search.html" %}
+		<script src="../tipuesearch/tipuesearch_set.js"></script>
+		<script src="../tipuesearch/tipuesearch.min.js"></script>
+	{% endif %}
 
 </head>
 
-<body>
-   
+<body>   
     <!-- Structure required for Sticky Sidebar -->
 	<div class="container clearfix">
 
 		<div id="sidebar">
 			<!-- Sidebar definition -->
 			<div class="sidebar__inner">
-				
 				{% include sidebar.html %}
-
 			</div>
-
 		</div>
 
 		<!-- Include main content -->
         <div id="content">
             {{ content }}
         </div>
-
 	</div>
 
 	<!-- Footer definition -->
 	<footer>
-		
 		{% include footer.html %}
-
     </footer>
 
 	<!-- Include Sticky Sidebar JS and configuration -->
-    {% include stickysidebar.html %}
+	{% include stickysidebar.html %}
+	
+	<!-- Include Tipue search function -->
+	{% include tipue.html %}
 
 </body>
 
