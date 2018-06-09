@@ -9,4 +9,4 @@ Depending on the operating system, python might already be installed. Even if it
 
 #### Anaconda by Continuum
 
-Technically, Anaconda is a 
+Anaconda advertises itself as a machine learning and data science software distribution, containing Python, R and many other packages. It's most distinguishing feature is the conda package manager, facilitating many workflow enhancements like Python virtual environments and package multi-versioning.
