@@ -75,5 +75,15 @@ The following serves as an example of the workflow using conda.
     # deactivate the nutils virtual environment
     conda deactivate
 
-    
+### CUDA development in Python
 
+CUDA development in Python focusses on two different approaches. The first tries to integrate GPU programming into Python with minimal additional code and dificulty. The aim of this approach is to provide (most of) the power of GPU's to the avarage Python developer in an almost automated maner.
+The second approach is to provide what is basically a wrapper for the CUDA toolkit. This unleashes the full power of CUDA to the Python developer, but sacrifices ease of use for performance and features.
+
+#### Numba
+
+[Numba](https://numba.pydata.org/) falls into the first catagory of CUDA Python development. The basic idea behind Numba is to perform a [Just-In-Time](https://en.wikipedia.org/wiki/Just-in-time_compilation) (JIT) compilation step for sections of code before they are executed. Numba uses the [LLVM](https://llvm.org/) compiler infrastructure to generate optimized machine code, and as such is not limited to CUDA.
+
+#### PyCUDA
+
+[PyCUDA](https://mathema.tician.de/software/pycuda/) falls in the second catagory.
