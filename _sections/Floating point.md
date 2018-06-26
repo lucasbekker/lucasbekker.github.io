@@ -11,15 +11,28 @@ Floating point (FP) data is a common way to store real numbers [(R)](https://en.
  - Single (FP32)
  - Half (FP16)
 
+ Floating point data contains three parts, the sign, the exponent and the mantissa, which are all stored as 2-base little-endian numbers (most significant bit to the left).
+
+##### 2-base example:
+
+2 base representation = $ 0111 $
+
+10 base representation = $ 8^{0} + 4^{1} + 2^{1} + 1^{1} $ = $ 7 $
+
+##### Calculation:
+
+Value = $ -1^{Sign_{2}} \times 2^{Exponent_{2} - Bias_{10}} \times (1 + 1/(Mantissa_{2})) $
+
+Bias is a datatype specific number to "center" the exponent range around 0.
+
 [**Double** (64 bit)](https://en.wikipedia.org/wiki/Double-precision_floating-point_format):
 
 Common format for sensitive mathematical equations, like solving ill conditioned systems. Default datatype of MATLAB.
 
-$$ Value = -Sign_{2} \times 2^{(Exponent_{2} - 1023)} \times (1 + Mantissa_{2}) $$
-
- - 1 bit: sign
- - 11 bit: exponent
- - 53 bit: mantissa
+ - Bias: '1023'
+ - Sign: 1 bit
+ - Exponent: 11 bits
+ - Mantissa: 53 bits
 
 Resolution: $$ (1/2)^{52} = 2.2204e-16 $$
 
@@ -29,11 +42,10 @@ Exponent range: $$ 2^{([-1023,1024])} $$
 
 Original floating point datatype used in 32 bit computers, provides sufficient resolution for many mathematical operations.
 
-$$ Value = -Sign_{2} \times 2^{(Exponent_{2} - 127)} \times (1 + Mantissa_{2}) $$
-
- - 1 bit: sign
- - 8 bit: exponent
- - 23 bit: mantissa
+ - Bias: '127'
+ - Sign: 1 bit
+ - Exponent: 8 bits
+ - Mantissa: 23 bits
 
 Resolution: $$ (1/2)^{23} = 1.1921e-07 $$
 
@@ -43,12 +55,11 @@ Exponent range: $$ 2^{([-127,128])} $$
 
 Relatively coarse approximation of a real number, but sometimes good enough. A great example of aplications that usually don't require more precision are  deep neural networks.
 
-$$ Value = -Sign_{2} \times 2^{(Exponent_{2} - 15)} \times (1 + Mantissa_{2}) $$
+ - Bias: '15'
+ - Sign: 1 bit
+ - Exponent: 5 bits
+ - Mantissa: 10 bits
 
- - 1 bit: sign
- - 5 bit: exponent
- - 10 bit: mantissa
-
-Resolution: $$ (1/2)^{52} = 9.7656e-04 $$
+Resolution: $$ (1/2)^{10} = 9.7656e-04 $$
 
 Exponent range: $$ 2^{([-15,16])} $$
