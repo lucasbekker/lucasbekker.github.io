@@ -70,7 +70,7 @@ The prolific nature of the dot product in vector mathematics has lead to the dev
 
 A = A + B x C
 
-It should be noted that the FMA operation can be used to emulate (may take more then one instruction) the basic operations:
+It should be noted that the FMA operation can be used to emulate (may take more then a single instruction) the basic operations:
 
  - Addition
  - Substraction
@@ -78,4 +78,4 @@ It should be noted that the FMA operation can be used to emulate (may take more 
  - Devision
  - Raising to a power
 
-As such, most modern computers rely on FMA hardware for all their floating point calculations.
+As such, most modern computers rely on FMA hardware for all their floating point calculations. The low level hardware required to perform the FMA calculation, differs for every floating point format (double, single or half). This makes it a common practice provide separate hardware blocks for each floating point format.
