@@ -34,9 +34,9 @@ Common format for sensitive mathematical equations, like solving ill conditioned
  - Exponent: 11 bits
  - Mantissa: 53 bits
 
-Resolution: $$ (1/2)^{52} = 2.2204e-16 $$
+Resolution: $ (1/2)^{52} = 2.2204e-16 $
 
-Exponent range: $$ 2^{([-1023,1024])} $$
+Exponent range: $ 2^{([-1023,1024])} $
 
 [**Single** (32 bit)](https://en.wikipedia.org/wiki/Single-precision_floating-point_format):
 
@@ -47,9 +47,9 @@ Original floating point datatype used in 32 bit computers, provides sufficient r
  - Exponent: 8 bits
  - Mantissa: 23 bits
 
-Resolution: $$ (1/2)^{23} = 1.1921e-07 $$
+Resolution: $ (1/2)^{23} = 1.1921e-07 $
 
-Exponent range: $$ 2^{([-127,128])} $$
+Exponent range: $ 2^{([-127,128])} $
 
 [**Half** (16 bit)](https://en.wikipedia.org/wiki/Half-precision_floating-point_format):
 
@@ -60,6 +60,22 @@ Relatively coarse approximation of a real number, but sometimes good enough. A g
  - Exponent: 5 bits
  - Mantissa: 10 bits
 
-Resolution: $$ (1/2)^{10} = 9.7656e-04 $$
+Resolution: $ (1/2)^{10} = 9.7656e-04 $
 
-Exponent range: $$ 2^{([-15,16])} $$
+Exponent range: $ 2^{([-15,16])} $
+
+### Floating point operation: Fused Multiply Add (FMA)
+
+The prolific nature of the dot product in vector mathematics has lead to the development of hardware dedicated to the task, performing a multiplication and addition in a single step:
+
+A = A + B x C
+
+It should be noted that the FMA operation can be used to emulate (may take more then one instruction) the basic operations:
+
+ - Addition
+ - Substraction
+ - Multiplication
+ - Devision
+ - Raising to a power
+
+As such, most modern computers rely on FMA hardware for all their floating point calculations.
