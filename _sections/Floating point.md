@@ -5,21 +5,21 @@ title: "Floating point"
 
 #### Floating point data
 
-Floating point (FP) data is a common way to store real numbers [(R)](https://en.wikipedia.org/wiki/Real_number). Many different types of floating point datatypes exist, but the most relevent types for scientific computing are:
+Floating point (FP) data is a common way to store real numbers [(R)](https://en.wikipedia.org/wiki/Real_number). Many different types of floating point datatypes exist, but the most relevant types for scientific computing are:
 
  - Double (FP64)
  - Single (FP32)
  - Half (FP16)
 
- Floating point data contains three parts, the sign, the exponent and the mantissa, which are all stored as 2-base little-endian numbers (most significant bit to the left).
+ Floating point data contains three parts, the sign, the exponent and the mantissa, which are all stored as 2-base little-endian (most significant bit to the left) numbers.
 
-##### 2-base example:
+##### Generic 2-base number example:
 
 2 base representation = $ 0111 $
 
-10 base representation = $ 8^{0} + 4^{1} + 2^{1} + 1^{1} $ = $ 7 $
+10 base representation = $ (8 \times 0) + (4 \times 1) + (2 \times 1) + (1 \times 1) $ = $ 7 $
 
-##### Calculation:
+##### Generic calculation floating point value:
 
 Value = $ -1^{Sign_{2}} \times 2^{Exponent_{2} - Bias_{10}} \times (1 + 1/(Mantissa_{2})) $
 
@@ -32,7 +32,7 @@ Common format for sensitive mathematical equations, like solving ill conditioned
  - Bias: '1023'
  - Sign: 1 bit
  - Exponent: 11 bits
- - Mantissa: 53 bits
+ - Mantissa: 52 bits
 
 Resolution: $ (1/2)^{52} = 2.2204e-16 $
 
