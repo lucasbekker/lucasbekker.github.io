@@ -11,7 +11,10 @@ Floating point (FP) data is a common way to store real numbers [(R)](https://en.
  - Single (FP32)
  - Half (FP16)
 
- Floating point data contains three parts, the sign, the exponent and the mantissa, which are all stored as 2-base little-endian (most significant bit to the left) numbers.
+Floating point data contains three parts, the sign, the exponent and the mantissa, which are all stored as 2-base little-endian (most significant bit to the left) numbers.
+
+
+![Floating point](../image/Float.png){:width="400px"}
 
 ##### Generic 2-base number example:
 
