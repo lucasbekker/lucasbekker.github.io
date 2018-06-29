@@ -3,7 +3,7 @@ layout: default
 title: "Basic computer hardware concepts"
 --- 
 
-#### Tradional computer model
+#### Traditional computer model
 
 The traditional computer was designed to perform many different operations on a relatively small amount of data. Because parallelising many different operations on the same data is very hard (or impossible), sequential execution of the operations has long been (still is) the norm. The result is a combination of a few very fast execution units (in the CPU) and a "pyramid shaped" memory/storage system. 
 
