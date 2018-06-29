@@ -15,7 +15,7 @@ Creating fast memory is expensive and not all the available data needs to be ins
 
 As CPU's grew more capable, and the way in which they where used, changed over the years, additional layers (L2 and L3) of cache where added to accomodate.
 
-##### Bandwidth
+##### [Bandwidth](https://en.wikipedia.org/wiki/Bandwidth_%28computing%29)
 
 Bandwidth is one of two measures of the "speed" of memory, but bandwidth is a broader concept. Bandwidth is a measure of the (maximum) amount of data that can be transferred between a sender and a receiver within a timeframe. Data transfer channels are usually bi-directional, making the distinction between sender and receiver less relevant.
 
@@ -31,4 +31,8 @@ The most common measure for bandwidth is bytes per second, a table of derived un
 | Kib/s | Mib/s | Gib/s | Tib/s | 1.024 - 1.048.576 - 1.073.741.824 - 1.099.511.627.776 bits/second  |
 | KiB/s | MiB/s | GiB/s | TiB/s | 1.024 - 1.048.576 - 1.073.741.824 - 1.099.511.627.776 bytes/second |
 
-##### Latency
+##### [Latency](https://en.wikipedia.org/wiki/Latency_%28engineering%29)
+
+Latency, or access time, is the second aspect that contributes to the "speed" of memory. But like bandwidth, is also broader concept. Latency is the amount of time between a request to a system and the response of the system.
+
+Memory access time is a highly multifaceted topic, which is largely beyond the scope of this text, but should be understood at a fundamental level in order to appreciate the difference between various types of computer memory.
