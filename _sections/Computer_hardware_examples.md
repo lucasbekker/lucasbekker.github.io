@@ -1,7 +1,13 @@
 ---
 layout: default
-title: "Computer Hardware Examples"
+title: "Computer hardware examples"
 --- 
+
+### Performance analysis
+
+GPGPU acceleration of mathematical problems centers around runtime performance. Enhancing the performance of a software routine becomes easier if certain basic concepts about computer hardware are familiar. The best performance can only be acchieved if the (machine) code is tailord towards the hardware on which the code will be executed.
+
+Basic hardware concepts, and a couple of more advanced ones, will be discussed using a few examples.
 
 #### Dual socket, quad GPU compute node
 
