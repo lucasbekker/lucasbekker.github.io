@@ -33,6 +33,14 @@ The most common measure for bandwidth is bytes per second, a table of derived un
 
 ##### [Latency](https://en.wikipedia.org/wiki/Latency_%28engineering%29)
 
-Latency, or access time, is the second aspect that contributes to the "speed" of memory. But like bandwidth, is also broader concept. Latency is the amount of time between a request to a system and the response of the system.
+Latency is defined as the amount of time between a request to a system and the response of the system. Memory latency is the second important measure of the "speed" of memory.
 
-Memory access time is a highly multifaceted topic, which is largely beyond the scope of this text, but should be understood at a fundamental level in order to appreciate the difference between various types of computer memory.
+Memory access time is a highly multifaceted topic, which is largely beyond the scope of this text, but should be understood at a global level to appreciate the performance impact on certain algorithms. In order to understand memory access time, one must first (roughly) understand how memory is accessed.
+
+Data in computer memory is stored in "blocks". These "blocks" have a fixed size and data can span a multitude of blocks. When the user makes a request to access certain (parts) of data, a list of "storage adresses" is generated. This list of "storage adresses" maps to the memory blocks that contain the requested data.
+
+This list of storage adresses is passed through to the memory subsystem (cache, RAM, HDD) that contains the requested data. This list then gets processed by the memory subsystem, which results in the data contained in the memory blocks being presented to the output of the memory subsystem in a serial fashion. The time between the arrival of the storage adresses list and the moment the first block of data is presented, is called "latency".
+
+If the user has requested multiple blocks at once, the data of the next memory block is presented to the output as soon as the previous block has been gathered at the output. If the user makes multiple requests of a single block, with a slight delay in between the requests, the latency penalty has to be paid for every single request.
+
+Latency is usually measured in mili/nano seconds, but can also be provided in cycles. This is totally equivalent to time, because each cycle takes a set amount of time (dependant on operating frequency).
