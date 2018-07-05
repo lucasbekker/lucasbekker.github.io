@@ -21,20 +21,23 @@ The easiest way to install Anaconda is to [download](https://conda.io/miniconda.
 
 Most of the common conda commands are listed in the [conda cheat sheet](https://conda.io/docs/_downloads/conda-cheatsheet.pdf).
 
-##### Example on Linux
+##### Example on Linux/MacOSX
 
     # Download the miniconda installer 
-    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    (linux)  wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    (macosx) wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
 
     # Run the installer
-    bash Miniconda3-latest-Linux-x86_64.sh
+    (linux)  bash Miniconda3-latest-Linux-x86_64.sh
+    (macosx) bash Miniconda3-latest-MacOSX-x86_64.sh
 
-The default install location will be "/home/<user_name>/miniconda3" (replace <user_name> with your user name). The installer also provides the possibility to add the binairies to the path, but it defaults to not doing so. Adding conda to the path can be done by:
+The default installation location will be "~/miniconda3". The installer also provides the possibility to add the binairies to the path, but it defaults to not doing so (for a good reason). Adding conda to the path should be done by:
 
     # Add to path
-    echo ". /home/<user_name>/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+    (linux)  echo ". /home/<user_name>/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+    (macosx) echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bash_profile
 
-This change will take effect the next time you open a terminal
+This change will take effect the next time you open a terminal.
 
 To test your conda installation, make a list of the installed packages and update conda to the latest version.
 
@@ -43,11 +46,13 @@ To test your conda installation, make a list of the installed packages and updat
 
     # Update conda
     conda update conda
+    conda update --all
 
-The following steps will change the default channel to the Intel distribution for Python channel. These steps can be skipped.
+The following steps will change the default channel to the Intel distribution for Python channel. These steps should be skipped for maximum compatibility.
 
     conda config --add channels intel
     conda update --all
+
 
 ##### Installation of Nutils
 
@@ -63,13 +68,13 @@ The following serves as an example of the workflow using conda.
     conda install matplotlib numpy scipy sphinx
 
     # Install Nutils
-    cd /home/<user_name>/miniconda3/envs/nutils
+    cd ~/miniconda3/envs/nutils
     git clone https://github.com/nutils/nutils.git
     cd nutils
     python setup.py install
 
     # Run the unit tests of Nutils
-    cd /home/<user_name>/miniconda3/envs/nutils/nutils/tests
+    cd ~/miniconda3/envs/nutils/nutils
     python -m unittest
 
     # deactivate the nutils virtual environment
