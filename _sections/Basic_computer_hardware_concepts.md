@@ -41,6 +41,4 @@ When the user makes a request to access certain (parts) of data, a list of "stor
 
 The time between the arrival of the storage adresses list and the moment the first block of data is presented, is called latency of that memory subsystem. The total latency of a data access request is the amount of time from the moment a "gather" instruction is issued till the moment that the data is "gathered" (available for manipulation). 
 
-If the user has requested multiple blocks at once, the data of the next memory block is presented to the output as soon as the previous block has been gathered at the output. If the user makes multiple requests of a single block, with a slight delay in between the requests, the latency penalty has to be paid for every single request.
-
 Latency is usually measured in mili/nano seconds, but can also be provided in cycles. This is totally equivalent to time, because each cycle takes a set amount of time (dependant on operating frequency).
