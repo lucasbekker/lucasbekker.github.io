@@ -3,21 +3,21 @@ layout: default
 title: "Computer components"
 --- 
 
-#### CPU
+#### Processor
 
 ##### Basics of a CPU
 
-CPU's are the "beating heart" of a computer, and as such, perform many more tasks than the ones that will be discussed in this text. The focus lies on the floating point calculation capabilities and the memory subsystems, as well as the interfaces.
+Processors, or CPU's, are the "beating heart" of a computer, and as such, perform many more tasks than the ones that will be discussed in this text. The focus lies on the floating point calculation capabilities and the memory subsystems, as well as the interfaces.
 
-The traditional CPU ([Central Processing Unit](https://en.wikipedia.org/wiki/Central_processing_unit)) is an Integrated Circuit (IC) that executes the logic, [arithmatic](https://en.wikipedia.org/wiki/Arithmetic), input/output (I/O) and control operations that are prescribed by software running on the computer. As time passed, many other subsystems of computers got integrated into the CPU, making the functions that the traditional CPU performs only a subset of all the functions that a modern CPU performes. A "core" of a modern CPU is a separate unit that performes all the tasks of a traditional CPU.
+The traditional CPU ([Central Processing Unit](https://en.wikipedia.org/wiki/Central_processing_unit)) is an Integrated Circuit (IC) that executes the logic, [arithmetic](https://en.wikipedia.org/wiki/Arithmetic), input/output (I/O) and control operations that are prescribed by software running on the computer. As time passed, many other subsystems of computers got integrated into the processor package (die), making the functions that the traditional CPU performs only a subset of all the functions that a modern processor performes. A "core" of a modern processor is a separate unit that performes all the tasks of a traditional CPU.
 
-Modern CPU's are very diverse, complex and multi-faceted, varying wildly with ISA, microarchitecture, intended platform and manufacturer. A discussion about CPU's that would include all these variations would be impossible, necessitating a confinement. This discussion will try to be as generic as possible, but the focus lies on an Intel based server CPU of the "Skylake-SP" microarchitecture.
+Modern processor cores are very diverse, complex and multi-faceted, varying wildly with ISA, microarchitecture, intended platform and manufacturer. A discussion about CPU's that would include all these variations would be impossible, necessitating a confinement. This discussion will try to be as generic as possible, but the focus lies on an Intel based server CPU of the "Skylake-SP" microarchitecture.
 
 Intel dominates the PC/laptop as well as the HPC/Supercomputer CPU market, making the restriction towards an Intel x86-64 based CPU justified. Considering the fact that almost all Laptops and workstations contain CPU's that are (to a varying extend) derived from their server oriënted counterparts, focusing the discussion around a server CPU seems logical as well. The Skylake-SP microarchitecture was chosen because it is very recent (at the time of writing), contains some very significant advancements for scientific computing workloads and is used in a cluster available to the MEFD group at the TU/e.
 
 ##### System on a Chip
 
-Modern CPU's are best decribed by the ["System on a Chip" (SoC)](https://en.wikipedia.org/wiki/System_on_a_chip) moniker, containing many of the core components of a computer. As such, most contain the following subsystems:
+Modern processors are best decribed by the ["System on a Chip" (SoC)](https://en.wikipedia.org/wiki/System_on_a_chip) moniker, containing many of the core components of a computer. As such, most contain the following subsystems:
 
  - Cores
  - Memory controller
@@ -33,7 +33,7 @@ An ISA is one of the most important aspects of a CPU, because it formes the link
 
 An implementation of an ISA, called a [microarchitecture (uarch)](https://en.wikipedia.org/wiki/Microarchitecture), is the hardware based realisation of these machine instruction definitions (disregarding [microcode](https://en.wikipedia.org/wiki/Microcode)). Any specific uarch can also support extensions to its ISA, common examples are VT-d, AES-NI, SSE4 and AVX2. These extensions are additions to the abstract computer model of an ISA and contain specific instructions to accelerate certain tasks of a computer, like AES data encryption, virtualization and vector mathematics.
 
-Some better known examples of microachtitectures are [Intel i386](https://en.wikipedia.org/wiki/Intel_80386), [Intel Nahelem](https://en.wikipedia.org/wiki/Nehalem_(microarchitecture)), [Intel Haswell](https://en.wikipedia.org/wiki/Haswell_%28microarchitecture%29), [AMD K8](https://en.wikipedia.org/wiki/AMD_K8), [AMD Bulldozer](https://en.wikipedia.org/wiki/Bulldozer_(microarchitecture)) and [AMD Zen](https://en.wikipedia.org/wiki/Zen_(microarchitecture)). 
+Some better known examples of microarchitectures are [Intel i386](https://en.wikipedia.org/wiki/Intel_80386), [Intel Nahelem](https://en.wikipedia.org/wiki/Nehalem_(microarchitecture)), [Intel Haswell](https://en.wikipedia.org/wiki/Haswell_%28microarchitecture%29), [AMD K8](https://en.wikipedia.org/wiki/AMD_K8), [AMD Bulldozer](https://en.wikipedia.org/wiki/Bulldozer_(microarchitecture)) and [AMD Zen](https://en.wikipedia.org/wiki/Zen_(microarchitecture)). 
 
 ##### Threads and cores
 
@@ -45,7 +45,7 @@ The specifications of a CPU may contain references to the number of threads it "
 
 ##### Cache
 
-The arithmatic and logic 
+The arithmetic and logic 
 
 ##### Intel Xeon Gold 1632
 
