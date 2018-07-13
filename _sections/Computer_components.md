@@ -9,7 +9,7 @@ title: "Computer components"
 
 CPU's are the "beating heart" of a computer, and as such, perform many more tasks than the ones that will be discussed in this text. The focus lies on the floating point calculation capabilities and the memory subsystems, as well as the interfaces.
 
-The traditional CPU ([Central Processing Unit](https://en.wikipedia.org/wiki/Central_processing_unit)) is an Integrated Circuit (IC) that executes the logic, arithmatic, input/output (I/O) and control operations that are prescribed by software running on the computer. As time passed, many other subsystems of computers got integrated into the CPU, making the functions that the traditional CPU performs only a subset of all the functions that a modern CPU performes. A "core" of a modern CPU is a separate unit that performes all the tasks of a traditional CPU.
+The traditional CPU ([Central Processing Unit](https://en.wikipedia.org/wiki/Central_processing_unit)) is an Integrated Circuit (IC) that executes the logic, [arithmatic](https://en.wikipedia.org/wiki/Arithmetic), input/output (I/O) and control operations that are prescribed by software running on the computer. As time passed, many other subsystems of computers got integrated into the CPU, making the functions that the traditional CPU performs only a subset of all the functions that a modern CPU performes. A "core" of a modern CPU is a separate unit that performes all the tasks of a traditional CPU.
 
 Modern CPU's are very diverse, complex and multi-faceted, varying wildly with ISA, microarchitecture, intended platform and manufacturer. A discussion about CPU's that would include all these variations would be impossible, necessitating a confinement. This discussion will try to be as generic as possible, but the focus lies on an Intel based server CPU of the "Skylake-SP" microarchitecture.
 
@@ -25,11 +25,13 @@ Modern CPU's are best decribed by the ["System on a Chip" (SoC)](https://en.wiki
  - Interfaces
  - Graphics (included in most consumer oriënted CPU's)
 
-##### ISA and uarch
+##### Linking software and hardware
 
-One of the most important aspects of a CPU is its Instruction Set Architecture ([ISA](https://en.wikipedia.org/wiki/Instruction_set_architecture)), like for example x86, x86-64 and ARM. An ISA is an abstract model of a computer and formes the link between software and hardware. ISA's where introduced to make programming software easier, which could now be written in terms of ISA instructions in stead of low level [machine code](https://en.wikipedia.org/wiki/Machine_code). The most common ISA for CPU's in servers, as well as consumer oriënted computers, is x86-64.
+One of the most important aspects of a CPU is its Instruction Set Architecture ([ISA](https://en.wikipedia.org/wiki/Instruction_set_architecture)), like for example x86-64, x86 and ARM. An ISA is an abstract model of a computer and contains a collection of machine instruction definitions. An implementation of an ISA, called a [microarchitecture (uarch)](https://en.wikipedia.org/wiki/Microarchitecture), is the hardware based realisation of these machine instruction definitions (disregarding [microcode](https://en.wikipedia.org/wiki/Microcode)).
 
-An implementation of an ISA is called a [microarchitecture (uarch)](https://en.wikipedia.org/wiki/Microarchitecture), with performance varying from uarch to uarch. Any specific uarch can also support extensions to its ISA, common examples are VT-d, AES-NI, SSE4 and AVX2. These extensions are additions to the abstract computer model of an ISA and contain specific instructions to accelerate certain tasks of a computer, like AES data encryption, virtualization and vector mathematics.
+ISA's where introduced to make programming software easier, which could now be written in terms of ISA instructions in stead of low level [machine code](https://en.wikipedia.org/wiki/Machine_code). The most common ISA for CPU's in servers, as well as consumer oriënted computers, is x86-64.
+
+Any specific uarch can also support extensions to its ISA, common examples are VT-d, AES-NI, SSE4 and AVX2. These extensions are additions to the abstract computer model of an ISA and contain specific instructions to accelerate certain tasks of a computer, like AES data encryption, virtualization and vector mathematics.
 
 ##### Threads and cores
 
@@ -38,6 +40,10 @@ A [thread](https://en.wikipedia.org/wiki/Thread_(computing)) is a chain of instr
 Multithreading allows a single process to spawn a multitude of threads, deviding the workload of that process. Performance benefits (can) arise when these threads are executed in parallel on multiple cores of a CPU.
 
 The specifications of a CPU may contain references to the number of threads it "has", which should be interpreted as the maximum amount of threads it can "execute" at the same time. The fact that a single CPU core can only execute one thread at a time doesn't change, even if the CPU specifications state that it has more (twice) threads then cores. This has to do with a technique called Hyperthreading, wich will be discussed later.
+
+##### Cache
+
+The arithmatic and logic 
 
 ##### Intel Xeon Gold 1632
 
