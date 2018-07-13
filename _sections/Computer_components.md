@@ -7,13 +7,13 @@ title: "Computer components"
 
 ##### Basics of a CPU
 
-CPU's are the "beating heart" of a computer, and as such, performes many more tasks than the ones that will be discussed in this text. The focus lies on the floating point calculation capabilities and the memory subsystems, as well as the interfaces.
+CPU's are the "beating heart" of a computer, and as such, perform many more tasks than the ones that will be discussed in this text. The focus lies on the floating point calculation capabilities and the memory subsystems, as well as the interfaces.
 
 The traditional CPU ([Central Processing Unit](https://en.wikipedia.org/wiki/Central_processing_unit)) is an Integrated Circuit (IC) that executes the logic, arithmatic, input/output (I/O) and control operations that are prescribed by software running on the computer. As time passed, many other subsystems of computers got integrated into the CPU, making the functions that the traditional CPU performs only a subset of all the functions that a modern CPU performes. A "core" of a modern CPU is a separate unit that performes all the tasks of a traditional CPU.
 
-Modern CPU's are very diverse, complex and multi-faceted, varying wildly with ISA, microarchitecture, intended platform and manufacturer. A discussion about CPU's that would include all these variations would be impossible, necessitating a confinement. This text will try to be as generic as possible, but will focus on an Intel based server CPU of the "Skylake-SP" microarchitecture.
+Modern CPU's are very diverse, complex and multi-faceted, varying wildly with ISA, microarchitecture, intended platform and manufacturer. A discussion about CPU's that would include all these variations would be impossible, necessitating a confinement. This discussion will try to be as generic as possible, but the focus lies on an Intel based server CPU of the "Skylake-SP" microarchitecture.
 
-Intel dominates the PC/laptop as well as the HPC/Supercomputer CPU market, making the restriction towards an Intel x86_64 based CPU justified. Considering the fact that almost all Laptops and workstations contain CPU's that are (to a varying extend) derived from their server oriënted counterparts, focusing the discussion around a server CPU seems logical as well. The Skylake-SP microarchitecture was chosen because it is very recent (at the time of writing), contains some very significant advancements for scientific computing workloads and is used in a cluster available to the MEFD group at the TU/e.
+Intel dominates the PC/laptop as well as the HPC/Supercomputer CPU market, making the restriction towards an Intel x86-64 based CPU justified. Considering the fact that almost all Laptops and workstations contain CPU's that are (to a varying extend) derived from their server oriënted counterparts, focusing the discussion around a server CPU seems logical as well. The Skylake-SP microarchitecture was chosen because it is very recent (at the time of writing), contains some very significant advancements for scientific computing workloads and is used in a cluster available to the MEFD group at the TU/e.
 
 ##### System on a Chip
 
@@ -27,7 +27,7 @@ Modern CPU's are best decribed by the ["System on a Chip" (SoC)](https://en.wiki
 
 ##### ISA and uarch
 
-One of the most important aspects of a CPU is it's Instruction Set Architecture ([ISA](https://en.wikipedia.org/wiki/Instruction_set_architecture)), like for example x86, x86-64 and ARM. An ISA is an abstract model of a computer and formes the link between software and hardware. ISA's where introduced to make programming software easier, which could now be written in terms of ISA instructions in stead of low level [machine code](https://en.wikipedia.org/wiki/Machine_code). The most common ISA for CPU's in servers, as well as consumer oriënted computers, is x86-64.
+One of the most important aspects of a CPU is its Instruction Set Architecture ([ISA](https://en.wikipedia.org/wiki/Instruction_set_architecture)), like for example x86, x86-64 and ARM. An ISA is an abstract model of a computer and formes the link between software and hardware. ISA's where introduced to make programming software easier, which could now be written in terms of ISA instructions in stead of low level [machine code](https://en.wikipedia.org/wiki/Machine_code). The most common ISA for CPU's in servers, as well as consumer oriënted computers, is x86-64.
 
 An implementation of an ISA is called a [microarchitecture (uarch)](https://en.wikipedia.org/wiki/Microarchitecture), with performance varying from uarch to uarch. Any specific uarch can also support extensions to its ISA, common examples are VT-d, AES-NI, SSE4 and AVX2. These extensions are additions to the abstract computer model of an ISA and contain specific instructions to accelerate certain tasks of a computer, like AES data encryption, virtualization and vector mathematics.
 
