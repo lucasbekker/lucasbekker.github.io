@@ -33,7 +33,7 @@ An ISA is one of the most important aspects of a CPU, because it formes the link
 
 An implementation of an ISA, called a [microarchitecture (uarch)](https://en.wikipedia.org/wiki/Microarchitecture), is the hardware based realisation of these machine instruction definitions (disregarding [microcode](https://en.wikipedia.org/wiki/Microcode)). Any specific uarch can also support extensions to its ISA, common examples are VT-d, AES-NI, SSE4 and AVX2. These extensions are additions to the abstract computer model of an ISA and contain specific instructions to accelerate certain tasks of a computer, like AES data encryption, virtualization and vector mathematics.
 
-Common examples of microachtitectures are [Intel i386](https://en.wikipedia.org/wiki/Intel_80386), [Intel Nahelem](https://en.wikipedia.org/wiki/Nehalem_(microarchitecture)), [Intel Haswell](https://en.wikipedia.org/wiki/Haswell_%28microarchitecture%29), [AMD K8](https://en.wikipedia.org/wiki/AMD_K8), [AMD Bulldozer](https://en.wikipedia.org/wiki/Bulldozer_(microarchitecture)) and [AMD Zen](https://en.wikipedia.org/wiki/Zen_(microarchitecture)). 
+Some better known examples of microachtitectures are [Intel i386](https://en.wikipedia.org/wiki/Intel_80386), [Intel Nahelem](https://en.wikipedia.org/wiki/Nehalem_(microarchitecture)), [Intel Haswell](https://en.wikipedia.org/wiki/Haswell_%28microarchitecture%29), [AMD K8](https://en.wikipedia.org/wiki/AMD_K8), [AMD Bulldozer](https://en.wikipedia.org/wiki/Bulldozer_(microarchitecture)) and [AMD Zen](https://en.wikipedia.org/wiki/Zen_(microarchitecture)). 
 
 ##### Threads and cores
 
