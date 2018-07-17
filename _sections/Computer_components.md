@@ -55,21 +55,6 @@ The development of multi-core processors and several levels of cache created an 
 
 Cache memory is a lot faster, and generally superior on many fronts, compared to main memory, because cache is made from SRAM and main memory is made from DRAM. SRAM stands for "Static Random Access Memory", whereas DRAM stands for "Dynamic Random Access Memory". Each SRAM memory cell requires 6 transistors to store a bit, whereas DRAM requires only one transistor (and a small capacitor) per bit. The downside of DRAM is that the capacitors in DRAM memory need to be recharged frequently, causing delays and other problems. This constant refreshing of the stored data gave rise to the name "Dynamic", while "Static" was used for SRAM, because it doesn't need to be refreshed. The extra hardware complexity of SRAM allows it to be much faster than DRAM, but the extra cost and space requirements on the [die](https://en.wikipedia.org/wiki/Die_(integrated_circuit)) of the CPU also make it much more expensive.
 
-##### Execution units
+##### Execution units and registers
 
-
-
-##### Intel Xeon Gold 1632
-
-![CPU](../image/Skylake-SP-Gold-1632.png){:width="800px"}
-
-This example CPU is the [Intel Xeon Gold 1632](https://ark.intel.com/products/123541/Intel-Xeon-Gold-6132-Processor-19_25M-Cache-2_60-GHz). 
-
-It contains:
- - 14 cores and 28 threads
- - 6 channel DDR4 ECC memory controller
- - 19.25 MiB L3 cache
- - 14 MiB (1 MiB/c) L2 cache
- - 0.875 MiB (64 KiB/c) L1 cache
- - 48 PCI-e v3.0 lanes
- - 2 AVX-512 FMA units per core
+Execution units of a CPU core are the parts that execute the instructions provided by the thread running on the core. There are many different types of execution units in modern CPU cores, each with their own specific function. Notable examples of execution units are; arithmetic logic unit ([ALU](https://en.wikipedia.org/wiki/Arithmetic_logic_unit)), address generation unit ([AGU](https://en.wikipedia.org/wiki/Address_generation_unit)) and floating-point unit ([FPU](https://en.wikipedia.org/wiki/Floating-point_unit)). Discussing the functions and operations of all these execution units is beyond the scope of this text, which will focus on the floating-point execution unit.
