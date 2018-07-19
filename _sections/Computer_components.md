@@ -55,8 +55,14 @@ The development of multi-core processors and several levels of cache created an 
 
 Cache memory is a lot faster, and generally superior on many fronts, compared to main memory, because cache is made from SRAM and main memory is made from DRAM. SRAM stands for "Static Random Access Memory", whereas DRAM stands for "Dynamic Random Access Memory". Each SRAM memory cell requires 6 transistors to store a bit, whereas DRAM requires only one transistor (and a small capacitor) per bit. The downside of DRAM is that the capacitors in DRAM memory need to be recharged frequently, causing delays and other problems. This constant refreshing of the stored data gave rise to the name "Dynamic", while "Static" was used for SRAM, because it doesn't need to be refreshed. The extra hardware complexity of SRAM allows it to be much faster than DRAM, but the extra cost and space requirements on the [die](https://en.wikipedia.org/wiki/Die_(integrated_circuit)) of the CPU also make it much more expensive.
 
-##### Execution units and registers
+##### Execution units and FMA3
 
 Execution units of a CPU core are the parts that execute the machine instructions derived from the thread running on the core. There are many different types of execution units in modern CPU cores, each with their own specific function. Notable examples of execution units are; arithmetic logic unit ([ALU](https://en.wikipedia.org/wiki/Arithmetic_logic_unit)), address generation unit ([AGU](https://en.wikipedia.org/wiki/Address_generation_unit)) and floating-point unit ([FPU](https://en.wikipedia.org/wiki/Floating-point_unit)). Discussing the functions and operations of all these execution units is beyond the scope of this text, which will focus on the floating-point execution unit.
 
-Execution units have input, output and sometimes status interfaces, which link to [registors](https://en.wikipedia.org/wiki/Processor_register).
+The floating-point execution units found in modern Intel CPU cores are FMA3 units (from Haswell onwards). These Fused Multiply Add units are capable of three different operations:
+
+ - $ a = a \cdot c + b $
+ - $ a = b \cdot a + c $
+ - $ a = b \cdot c + a $
+
+A single CPU core can contain multiple execution units of the same type, the exact amount varying with each microarchitecture. The Skylake-SP uarch contains 16 FMA3 units for "double" floating-point numbers and 32 FMA3 units for "single" floating-point numbers. These FMA3 units are seperated into two groups called AVX-512 FMA units, which form the backbone of the [AVX-512](https://en.wikipedia.org/wiki/AVX-512) instruction set extension.
