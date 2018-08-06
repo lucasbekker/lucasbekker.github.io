@@ -106,4 +106,21 @@ A second important aspect of a memory controller/system is support for [Error Co
 
 ##### PCI-express
 
-##### QPI, UMI and DMI
+PCI-express ([Peripheral Component Interconnect Express](https://en.wikipedia.org/wiki/PCI_Express)) is the dominant interconnecting interface for computer components. Basically everything other then DRAM is connected to the CPU via (a derived form of) PCIe (PCI-express), making it a very important element of a computer. Some examples of components that are connected to the CPU via PCIe are:
+
+  - [GPU](https://en.wikipedia.org/wiki/Graphics_processing_unit)
+  - [NIC](https://en.wikipedia.org/wiki/Network_interface_controller)
+  - [SAS controller](https://en.wikipedia.org/wiki/Serial_Attached_SCSI)
+  - [NVMe storage](https://en.wikipedia.org/wiki/NVM_Express)
+
+PCIe is a serial bus, introduced to replace [PCI(-X)](https://en.wikipedia.org/wiki/Conventional_PCI) and [AGP](https://en.wikipedia.org/wiki/Accelerated_Graphics_Port). The PCIe standard has seen multiple revisions (backwards compatible) over the years since its introduction, improving (among other things); bandwidth, power delivery, error correcting overhead and features. The most common implementation of the standard (at the time of writing) is version 3.x, which will be the version that this text considers.
+
+PCIe links consist of "lanes", each lane having four physical connections. Two connections for a [differential](https://en.wikipedia.org/wiki/Differential_signaling) read signal and the other two for a differential write signal, amounting to a [full-duplex](https://en.wikipedia.org/wiki/Duplex_(telecommunications)#FULL-DUPLEX) connection. A PCIe link to a device may be a grouping of multiple lanes, ranging from one to 32 lanes per link (x1, x2, x4, x8, x16, x32). GPU's are commonly connected using a x16 link, SAS controllers and NVMe storage typically use a x4/x8 link and single port NIC's have a x1 link. 
+
+The bandwith of a PCIe v3 x1 link is specified using Giga Transfers per second (GT/s), which specifies the amount of bits that can be transferred from the host to the client or vice versa. The PCIe v3 standard uses 128b/130b encoding for error correcting purposes, meaning that for every 130 bits transmitted, only 128 bits contain data and the remaining two bits contain a form of parity data. This means that a PCIe v3 x1 link of 8 GT/s has a bandwidth of 985 MB/s (8000 x (128/130) x (1/8) = 984.62) and a x16 link has a bandwidth of 15.75 GB/s.
+
+###### DMI
+
+The Direct Media Interface (DMI) interconnect is an Intel specific protocol used to connect the CPU to the Platform Controller Hub ([PCH](https://en.wikipedia.org/wiki/Platform_Controller_Hub)), which is (among other things) responsible for USB and SATA connectivity. DMI is a prime example of an interconnect specification derived from PCIe, with a DMI 3.0 link being nearly equivalent to PCIe v3 x4 link.
+
+##### QPI and UPI
