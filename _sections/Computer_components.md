@@ -124,3 +124,13 @@ The bandwith of a PCIe v3 x1 link is specified using Giga Transfers per second (
 The Direct Media Interface (DMI) interconnect is an Intel specific protocol used to connect the CPU to the Platform Controller Hub ([PCH](https://en.wikipedia.org/wiki/Platform_Controller_Hub)), which is (among other things) responsible for USB and SATA connectivity. DMI is a prime example of an interconnect specification derived from PCIe, with a DMI 3.0 link being nearly equivalent to PCIe v3 x4 link.
 
 ##### QPI and UPI
+
+Most high-end servers allow the placement of multiple identical CPU's on the same motherboard, allowing two or four CPU's to be part of the same computer. Intel QuickPath Interconnect ([QPI](https://en.wikipedia.org/wiki/Intel_QuickPath_Interconnect)) and its successor, Intel UltraPath Interconnect ([UPI](https://en.wikipedia.org/wiki/Intel_UltraPath_Interconnect)), are interfaces primarily used for inter CPU communication on these multi socket machines.
+
+The bandwidth of the connection between the CPU's can be important in a number of scenarios, for example:
+
+  - Memory bandwidth starved single threaded applications.
+  - Threads running on CPU-0 that need to communicate with a GPU connected to CPU-1.
+  - Results from threads running on CPU-0 and CPU-1 that need to be combined in a single thread.
+
+The total bandwidth of a QPI/UPI connection is its transfer speed specification times four. The Intel Xeon Gold 6132 has a UPI link speed of 10.6 GT/s, amounting to 42.4 GB/s of bandwidth. Note that this is considerably less then the maximum memory bandwidth of the Xeon Gold 6132, which is 119.21 GiB/s. 
