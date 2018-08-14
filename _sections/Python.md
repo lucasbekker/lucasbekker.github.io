@@ -91,4 +91,4 @@ The second approach is to provide what is basically a wrapper for the CUDA toolk
 
 #### PyCUDA
 
-[PyCUDA](https://mathema.tician.de/software/pycuda/) falls in the second catagory.
+[PyCUDA](https://mathema.tician.de/software/pycuda/) falls in the second catagory. 
