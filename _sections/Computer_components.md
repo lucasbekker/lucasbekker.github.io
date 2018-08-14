@@ -133,4 +133,21 @@ The bandwidth of the connection between the CPU's can be important in a number o
   - Threads running on CPU-0 that need to communicate with a GPU connected to CPU-1.
   - Results from threads running on CPU-0 and CPU-1 that need to be combined in a single thread.
 
-The total bandwidth of a QPI/UPI connection is its transfer speed specification times four. The Intel Xeon Gold 6132 has a UPI link speed of 10.6 GT/s, amounting to 42.4 GB/s of bandwidth. Note that this is considerably less then the maximum memory bandwidth of the Xeon Gold 6132, which is 119.21 GiB/s. 
+The total bandwidth of a QPI/UPI connection is its transfer speed specification times four. The Intel Xeon Gold 6132 has a UPI link speed of 10.6 GT/s, amounting to 42.4 GB/s of bandwidth. Note that this is considerably less then the maximum memory bandwidth of the Xeon Gold 6132, which is 119.21 GiB/s.
+
+#### Graphics card
+
+##### NVIDIA Volta
+
+There are many vendors of GPU's ([AMD](https://www.amd.com/en), [NVIDIA](https://www.nvidia.com/en-us/), [Intel](https://www.intel.com/content/www/us/en/homepage.html), [Imagination Technologies](https://www.imgtec.com/)), most of which have products capable of some sort of compute support via [OpenCL](https://www.khronos.org/opencl/). OpenCL stands for Open Compute Language and is a fully open source and portable framework for compute on CPU's and GPU's. The main competitor of OpenCL is [CUDA](https://en.wikipedia.org/wiki/CUDA), which is proprietary to NVIDIA.
+
+CUDA is somewhat older than OpenCL and had a mature implementation before OpenCL, allowing CUDA to develop a head start with respect to the development of a GPGPU compute ecosystem. Combined with the very large dedicated garphics card market share of NVIDIA, results in CUDA being a dominant force in the GPGPU compute world. The most obvious disadvantage of this situation is vendor lock-in in NVIDIA's favour, which is reflected in this text, as it will focus on NVIDIA products.
+
+Graphics cards are more divergent in their operation from microarchitecture to microarchitecture then CPU's are, making it more difficult to discuss certain topics in a general fashion. The main microarchitecture of interest to this text is [Volta](https://en.wikipedia.org/wiki/Volta_(microarchitecture)), as implemented by the Tesla V100 card. The Tesla V100 is a GPU (without display functionality) specifically developed for GPGPU purposes, featuring hardware capable of half and double precision floating
+point operations, special "tensor" cores and very high memory bandwidth. These features are unavailable to most other NVIDIA GPU's (at the time of writing), making the Tesla V100 an obvious choise as GPGPU accelerator.
+
+##### SIMD versus SIMT
+
+##### Superscalar
+
+##### Massively parallel
