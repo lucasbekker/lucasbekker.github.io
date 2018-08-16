@@ -43,6 +43,8 @@ Multithreading (software) allows a single process to spawn a multitude of thread
 
 The specifications of a CPU may contain references to the number of threads it "has", which should be interpreted as the maximum amount of threads it can "execute" at the same time. The fact that a single CPU core can only execute one thread at a time doesn't change, even if the CPU specifications state that it has more (twice) threads then cores. This has to do with a hardware based technique called simultaneous multithreading ([SMT](https://en.wikipedia.org/wiki/Simultaneous_multithreading)), which will be discussed later.
 
+##### Superscalar and pipelining
+
 ##### Cache
 
 Quick access to data is critical for the performance of a CPU, making data flow and storage a mayor aspect of a CPU. The main memory of a computer has a relatively high latency and low bandwidth compared to the needs of modern CPU cores, which is where [cache](https://en.wikipedia.org/wiki/CPU_cache) comes into play.
@@ -66,6 +68,12 @@ The floating-point execution units found in modern Intel CPU cores are FMA3 unit
  - $ a = b \cdot c + a $
 
 A single CPU core can contain multiple execution units of the same type, the exact amount varying with each microarchitecture. The Skylake-SP uarch contains 16 FMA3 units for "double" floating-point numbers and 32 FMA3 units for "single" floating-point numbers. These FMA3 units are seperated into two groups called AVX-512 FMA units, which form the hardware layer of the [AVX-512](https://en.wikipedia.org/wiki/AVX-512) ISA extension.
+
+##### SIMD
+
+[SIMD](https://en.wikipedia.org/wiki/SIMD) stands for single instruction, multiple data and is a form of [data parallelism](https://en.wikipedia.org/wiki/Data_parallelism). SIMD is a vector processing technique, allowing the CPU core to execute the same instruction on multiple data entries (grouped in 1D arrays called vectors) in a single clock cycle.
+
+SIMD lies at the basis of almost all floating point execution units, like AVX2 and AVX-512. AVX2 execution units have 256 bit deep [registers](https://en.wikipedia.org/wiki/Processor_register) and AVX-512 execution units have 512 bit deep registers. These registers contain the data vectors, fitting 16/32 double/single floating-point numbers in case of AVX-512 and half that amount for AVX2. The maximum achievable throughput 
 
 ##### Simultaneous multithreading
 
