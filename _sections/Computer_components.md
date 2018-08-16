@@ -67,13 +67,13 @@ The floating-point execution units found in modern Intel CPU cores are FMA3 unit
  - $ a = b \cdot a + c $
  - $ a = b \cdot c + a $
 
-A single CPU core can contain multiple execution units of the same type, the exact amount varying with each microarchitecture. The Skylake-SP uarch contains 16 FMA3 units for "double" floating-point numbers and 32 FMA3 units for "single" floating-point numbers. These FMA3 units are seperated into two groups called AVX-512 FMA units, which form the hardware layer of the [AVX-512](https://en.wikipedia.org/wiki/AVX-512) ISA extension.
+A single CPU core can contain multiple execution units of the same type, the exact amount varying with each microarchitecture. The Skylake-SP uarch contains 16 FMA3 units for "double" floating-point numbers and 32 FMA3 units for "single" floating-point numbers. These FMA3 units are separated into two groups called AVX-512 FMA units, which form the hardware layer of the [AVX-512](https://en.wikipedia.org/wiki/AVX-512) ISA extension.
 
 ##### SIMD
 
-[SIMD](https://en.wikipedia.org/wiki/SIMD) stands for single instruction, multiple data and is a form of [data parallelism](https://en.wikipedia.org/wiki/Data_parallelism). SIMD is a vector processing technique, allowing the CPU core to execute the same instruction on multiple data entries (grouped in 1D arrays called vectors) in a single clock cycle.
+[SIMD](https://en.wikipedia.org/wiki/SIMD) stands for single instruction, multiple data and is a form of [data parallelism](https://en.wikipedia.org/wiki/Data_parallelism). SIMD is a vector processing technique, allowing the CPU core to execute the same instruction on multiple data entries (grouped in 1D arrays called vectors) in a single clock cycle. The maximum achievable throughput increases substantially by using SIMD, but does requires all the data to be manipulated in the same way, making it less versatile.
 
-SIMD lies at the basis of almost all floating point execution units, like AVX2 and AVX-512. AVX2 execution units have 256 bit deep [registers](https://en.wikipedia.org/wiki/Processor_register) and AVX-512 execution units have 512 bit deep registers. These registers contain the data vectors, fitting 16/32 double/single floating-point numbers in case of AVX-512 and half that amount for AVX2. The maximum achievable throughput 
+SIMD lies at the basis of almost all floating point execution units, like AVX2 and AVX-512. AVX2 execution units have 256 bit deep [registers](https://en.wikipedia.org/wiki/Processor_register) and AVX-512 execution units have 512 bit deep registers. These registers contain the data vectors, fitting 16/32 double/single floating-point numbers in case of AVX-512 and half that amount for AVX2.
 
 ##### Simultaneous multithreading
 
