@@ -75,7 +75,7 @@ SIMD lies at the basis of almost all floating point execution units, like AVX2 a
 
 ##### Superscalar
 
-
+As stated earlier, CPU cores can have many execution units. Keeping all the execution units busy at the same time requires multiple instructions to be dispatched (one instruction per execution unit) simultaneously. The ability of a CPU core to dispatch multiple instructions simultaneously is called being [superscalar](https://en.wikipedia.org/wiki/Superscalar_processor).
 
 ##### Simultaneous multithreading
 
