@@ -2,12 +2,12 @@
 
 For local development/deployment:
 
-Using Bash on Windows / Ubuntu 16.04 LTS
+Using Bash on Windows / Ubuntu 16.04 LTS / Ubuntu 18.04 LTS
 
     # Install Ruby from the brightbox repository and required components.
     sudo apt-add-repository ppa:brightbox/ruby-ng
     sudo apt update
-    sudo apt install ruby2.4 ruby2.4-dev build-essential dh-autoreconf libssl-dev
+    sudo apt install ruby2.5 ruby2.5-dev build-essential dh-autoreconf libssl-dev zlib1g-dev
 
     # Install bundler.
     sudo gem update
