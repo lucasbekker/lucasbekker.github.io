@@ -55,27 +55,33 @@ The development of multi-core processors and several levels of cache created an 
 
 Cache memory is a lot faster, and generally superior on many fronts, compared to main memory, because cache is made from SRAM and main memory is made from DRAM. SRAM stands for "Static Random Access Memory", whereas DRAM stands for "Dynamic Random Access Memory". Each SRAM memory cell requires 6 transistors to store a bit, whereas DRAM requires only one transistor (and a small capacitor) per bit. The downside of DRAM is that the capacitors in DRAM memory need to be recharged frequently, causing delays and other problems. This constant refreshing of the stored data gave rise to the name "Dynamic", while "Static" was used for SRAM, because it doesn't need to be refreshed. The extra hardware complexity of SRAM allows it to be much faster than DRAM, but the extra cost and space requirements on the [die](https://en.wikipedia.org/wiki/Die_(integrated_circuit)) of the CPU also make it much more expensive.
 
-##### Execution units and FMA3
+##### Execution units
 
 Execution units of a CPU core are the parts that execute the machine instructions derived from the thread running on the core. There are many different types of execution units in modern CPU cores, each with their own specific function. Notable examples of execution units are; arithmetic logic unit ([ALU](https://en.wikipedia.org/wiki/Arithmetic_logic_unit)), address generation unit ([AGU](https://en.wikipedia.org/wiki/Address_generation_unit)) and floating-point unit ([FPU](https://en.wikipedia.org/wiki/Floating-point_unit)). Discussing the functions and operations of all these execution units is beyond the scope of this text, which will focus on the floating-point execution unit.
 
-The floating-point execution units found in modern Intel CPU cores are FMA3 units (from Haswell on wards). These Fused Multiply Add units are capable of three different operations:
+###### Superscalar
+
+CPU cores have many execution units, most also have multiple execution units of the same type. Keeping all the execution units busy at the same time requires multiple instructions to be dispatched (one instruction per execution unit) simultaneously. The ability of a CPU core to dispatch multiple instructions simultaneously is called being [superscalar](https://en.wikipedia.org/wiki/Superscalar_processor), whereas CPU's that can only dispatch a single instruction are called scalar. Superscalar capabilities are a form of [instruction-level parallelism](https://en.wikipedia.org/wiki/Instruction-level_parallelism).
+
+###### SIMD
+
+[SIMD](https://en.wikipedia.org/wiki/SIMD) stands for single instruction, multiple data and is a form of [data level parallelism](https://en.wikipedia.org/wiki/Data_parallelism). SIMD is a vector processing technique, allowing an execution unit to perform the same instruction on multiple data entries (grouped in 1D arrays called vectors) in a single clock cycle. The maximum achievable throughput increases substantially by using SIMD, but does requires all the data to be manipulated in the same way, making it less versatile.
+
+SIMD works by exposing deep [registers](https://en.wikipedia.org/wiki/Processor_register) to execution units, containing the data vectors. The instruction that the execution unit receives is performed on the complete register.
+
+###### FMA3 and advanced vector extensions
+
+The floating-point execution units found in modern Intel CPU cores are based on FMA3 (from Haswell on wards). These Fused Multiply Add based units are capable of three different operations:
 
  - $ a = a \cdot c + b $
  - $ a = b \cdot a + c $
  - $ a = b \cdot c + a $
 
-A single CPU core can contain multiple execution units of the same type, the exact amount varying with each microarchitecture. The Skylake-SP uarch contains 16 FMA3 units for "double" floating-point numbers and 32 FMA3 units for "single" floating-point numbers. These FMA3 units are separated into two groups called AVX-512 FMA units, which form the hardware layer of the [AVX-512](https://en.wikipedia.org/wiki/AVX-512) ISA extension.
+The Skylake-SP uarch contains two AVX-512 execution units, with 512 bit deep [registers](https://en.wikipedia.org/wiki/Processor_register. Each AVX-512 unit contains 8 FMA3 sub-units for "double" floating-point numbers and 16 FMA3 sub-units for "single" floating-point numbers. These AVX-512 execution units form the hardware layer of the [AVX-512](https://en.wikipedia.org/wiki/AVX-512) ISA extension.
 
-##### SIMD
+The Haswell and Broadwell uarch contain two AVX2 execution units, with 256 bit deep registers. Each AVX2 unit contains 4 FMA3 sub-units for "double" floating-point numbers and 8 FMA3 sub-units for "single" floating-point numbers. These AVX2 execution units form the hardware layer of the [AVX2](https://en.wikipedia.org/wiki/Advanced_Vector_Extensions#Advanced_Vector_Extensions_2) ISA extension.
 
-[SIMD](https://en.wikipedia.org/wiki/SIMD) stands for single instruction, multiple data and is a form of [data parallelism](https://en.wikipedia.org/wiki/Data_parallelism). SIMD is a vector processing technique, allowing the CPU core to execute the same instruction on multiple data entries (grouped in 1D arrays called vectors) in a single clock cycle. The maximum achievable throughput increases substantially by using SIMD, but does requires all the data to be manipulated in the same way, making it less versatile.
-
-SIMD lies at the basis of almost all floating point execution units, like AVX2 and AVX-512. AVX2 execution units have 256 bit deep [registers](https://en.wikipedia.org/wiki/Processor_register) and AVX-512 execution units have 512 bit deep registers. These registers contain the data vectors, fitting 16/32 double/single floating-point numbers in case of AVX-512 and half that amount for AVX2.
-
-##### Superscalar
-
-As stated earlier, CPU cores can have many execution units. Keeping all the execution units busy at the same time requires multiple instructions to be dispatched (one instruction per execution unit) simultaneously. The ability of a CPU core to dispatch multiple instructions simultaneously is called being [superscalar](https://en.wikipedia.org/wiki/Superscalar_processor).
+AMD's latest (at the time of writing) Zen architecture also supports AVX2 instructions (not AVX-512), but the hardware based implementation is completely different. It doesn't have native support for 256 bit deep registers and each AVX2 instruction takes 2 clock cycles to complete, compared to one clock cycle of Intel based AVX2 capable CPU's.
 
 ##### Simultaneous multithreading
 
