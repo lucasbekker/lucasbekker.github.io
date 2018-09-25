@@ -77,7 +77,7 @@ The floating-point execution units found in modern Intel CPU cores are based on 
  - $ a = b \cdot a + c $
  - $ a = b \cdot c + a $
 
-The Skylake-SP uarch contains two AVX-512 execution units, with 512 bit deep [registers](https://en.wikipedia.org/wiki/Processor_register. Each AVX-512 unit contains 8 FMA3 sub-units for "double" floating-point numbers and 16 FMA3 sub-units for "single" floating-point numbers. These AVX-512 execution units form the hardware layer of the [AVX-512](https://en.wikipedia.org/wiki/AVX-512) ISA extension.
+The Skylake-SP uarch contains two AVX-512 execution units, with 512 bit deep [registers](https://en.wikipedia.org/wiki/Processor_register). Each AVX-512 unit contains 8 FMA3 sub-units for "double" floating-point numbers and 16 FMA3 sub-units for "single" floating-point numbers. These AVX-512 execution units form the hardware layer of the [AVX-512](https://en.wikipedia.org/wiki/AVX-512) ISA extension.
 
 The Haswell and Broadwell uarch contain two AVX2 execution units, with 256 bit deep registers. Each AVX2 unit contains 4 FMA3 sub-units for "double" floating-point numbers and 8 FMA3 sub-units for "single" floating-point numbers. These AVX2 execution units form the hardware layer of the [AVX2](https://en.wikipedia.org/wiki/Advanced_Vector_Extensions#Advanced_Vector_Extensions_2) ISA extension.
 
