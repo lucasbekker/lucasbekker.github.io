@@ -30,12 +30,33 @@ As an example, take a task that consist of 95%  parallelizable work. The maximum
 
 #### Compensated Amdahl's law
 
-Whether parallel slowdown is caused by a communications bottleneck or not, it scales with the amount of available nodes. This overhead effect can be viewed as an additional non parallelizable part of the task. Furthermore, two modelling assumptions are made:
+Amdahl's law assumes that dividing the parallel part of the task among many nodes doesn't inflict any sort of runtime penalty. That assumption is certainly reasonable for embarrassingly parallel workloads, but is not always correct outside of the embarrassingly parallel case.
+
+Amdahl's law can be compensated for this runtime penalty by specifying and additional part of the task, called $\text{T}_{overhead}(k)$, which is modelled as a function of the amount of nodes:
+
+$ T_{total} = T_{serial} + T_{parallel} $
+
+$ Speedup(k) = \frac{T_{total}}{T_{serial} + (\frac{T_{parallel}}{k}) + T_{overhead}(k)}$
+
+$ k $ := number of parallel nodes
+
+The exact relation between $T_{overhead}(k)$ and the amount of nodes is application specific, but two general modelling assumptions seem reasonable:
 
  - There is no overhead when only one node is available.
- - The overhead time scales linearly with the amount of parallel nodes.
+ - $T_{overhead}(k)$ consists of a parallelizable and non-parallelizable part.
 
-The resulting speedup is thus:
+The first assumption is trivial. The second one states that the tasks constituting the overhead can consist of elements that need to be executed sequentially and elements that can be executed concurrently.
+
+##### Modelling parallel slowdown
+
+Parallel slowdown can be modelled with the compensated Amdahl's law. When it is indeed caused by a communications bottleneck, it seems reasonable to assume the following things:
+
+ - The overhead consists exclusively of non-parallelizable tasks.
+ - The overhead scales linearly with the amount of parallel nodes.
+
+Communication between multiple nodes is usually dominated by non-parallelizable tasks, because it often involves some form of causality. The choice of scaling is debatable, but less then linear scaling is very unlikely, whereas more than linear scaling is very common.
+
+The predicted speedup would in this case be:
 
 $ T_{total} = T_{serial} + T_{parallel} $
 
@@ -43,10 +64,9 @@ $ Speedup(k) = \frac{T_{total}}{T_{serial} + (\frac{T_{parallel}}{k}) + ((k - 1)
 
 $ k $ := number of parallel nodes
 
-
 ##### Compensated example
 
-Examining the previous example, but also taking an overhead of 1% (of $ T_{total} $) into account, results into the following relationship between available parallel nodes and maximum theoretical speedup.
+In this section, an example will be discussed to illustrate the consequences that the overhead compensation of Amdahl's law can have. Like the previous example, the parallel part of the task is set at 95%. The relation for $T_{overhead}(k)$ is taken from the communications bottlenecked case, with a constant factor of 1% of $T_{total}$.
 
 ![Amdahl Example](../image/compensated_amdahl.png){:width="900px"}
 
