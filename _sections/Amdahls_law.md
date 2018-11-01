@@ -70,4 +70,44 @@ In this section, an example will be discussed to illustrate the consequences tha
 
 ![Amdahl Example](../image/compensated_amdahl.png){:width="900px"}
 
-The maximum speedup of about 4.255 is achieved using 10 parallel nodes, a far cry from the maximum of 20 that the uncompensated Amdahl's law predicted. Using 150 nodes results in a speedup of about 0.65, which is actually a significant performance decrease. 
+The maximum speedup of about 4.255 is achieved using 10 parallel nodes, a far cry from the maximum of 20 that the uncompensated Amdahl's law predicted. Using 150 nodes results in a speedup of about 0.65, which is actually a significant performance decrease.
+
+#### Experimental verification
+
+Accelerating iterative solvers by dividing the workload among parallel nodes is a common practice. However, there is a general rule of thumb that the amount of parallel nodes should not be to large in these cases, as the communication between the processes quickly becomes excessive.
+
+[W.M. Zuberek and T.D.P. Perera](http://www.wseas.us/e-library/conferences/2005sofia/papers/500-268.pdf) investigated the scaling behaviour of distributed iterative solvers, focusing on the Gauss-Seidel method. They provide experimental data on the scaling behaviour for three kind of sparsity patterns:
+
+![Amdahl_sparse](../image/Amd_sparse.png){:width="1000px"}
+
+Density: (1) = 0.015, (2) = 0.015, (3) = 0.025 (Taken from W.M. Zuberek and T.D.P. Perera)
+
+![Amdahl_scale](../image/Amd_scale.png){:width="400px"}
+
+Speedups of distributed iterative solvers (Taken from W.M. Zuberek and T.D.P. Perera)
+
+The above graph shows three things:
+
+ - Parallel slowdown occurs for all three matrices when using more then 8 processors.
+ - Sparsity pattern has little effect on the speedup.
+ - Density has a significant effect on the speedup.
+
+Worth mentioning is the questionable speedup at 2 processors, having a value of about 3 for all three curves. This is odd because Amdahl's law states that the speedup can never exceed the amount of parallel nodes. It might be explained by some caching effect, where the complete data set doesn't fit in the cache of a single processor, but does fit in the cache of two processors. No mention of this was made by W.M. Zuberek and T.D.P. Perera.
+
+##### Fitted model results
+
+To evaluate the performance of the compensated Amdahl's law, a comparison is made with the experimental data of W.M. Zuberek and T.D.P. Perera.
+
+The model represented by the equation presented at [Modeling parallel slowdown](https://lucasbekker.github.io/Amdahls_law#modelling-parallel-slowdown) was selected for the comparison, because it is expected that the parallel slowdown was caused by a communications bottleneck. $T_{parallel}$ was set to 100% because the algorithm used by W.M. Zuberek and T.D.P. Perera contains no serial part. Some experimenting provided the values of $T_{overhead}$:
+
+![Amdahl_verification](../image/Amd_ver.png){:width="800px"}
+
+Red: $T_{parallel}$ = 100%, $T_{overhead}$ = 1.4%
+
+Blue: $T_{parallel}$ = 100%, $T_{overhead}$ = 2.0%
+
+The results are not too bad. The behaviour in the region between 2 and 6 processors is a little different, but speedups exceeding the number of parallel nodes cannot be explained with Amdahl's law. Some unknown effect must have had a significant influence on the results of the experimental data, but it is generally very uncommon to see this kind of behaviour.
+
+The value of the maximum speedup and the amount of processors required to achieve said speedup are relatively accurate. The experimental results show a slightly less linear and steeper descend then the model, but this just means that the assumption that the overhead scales linearly with the amount of parallel nodes is not completely true. This reflects the discussion of the model provided at section "Modelling parallel slowdown".
+
+The red line models the situation of matrix (3), with a density of 0.025. The blue line models the two other cases with the lower density of 0.015. The higher density situation has a lower overhead, 1.4% versus 2.0%. This appears reasonable, because the higher density results in a higher runtime per processor, while the communication overhead remains unaffected. As $T_{overhead}$ is modelled as a fraction of $T_{total}$, this lower $T_{overhead}$ is to be expected.
