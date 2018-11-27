@@ -52,3 +52,47 @@ $$
 #### Solving
 
 The acceleration of the Boltzmann or Navier-Stokes Cahn-Hilliard equations will focus on improving the performance of the step where the system $A\,x=b$ is solved.
+
+#### Defect correction
+
+The objective is to solve a linear system of equations:
+
+$$
+A\,x=b
+$$
+
+The problem is that the system is very difficult to solve. One approach would be to use a defect correction method. Instead of solving the original system, an easier system will be solved:
+
+$$
+\widetilde{A}\,x=b
+$$
+
+The solution to this, $x_{k}$, is an approximation to the solution of the original system, with an accompanying residual:
+
+$$
+r_{k} = A\,x_{k} - b
+$$
+
+The update required to get the solution of the original system would be the solution of the following system:
+
+$$
+A\,\Delta x = r_{k}
+$$
+
+But again, this is to difficult, so the update is calculated by solving the following system:
+
+$$
+\widetilde{A}\,\Delta x = r_{k}
+$$
+
+Resulting in an iterative process:
+
+$$
+x_{k+1} = (\widetilde{A}^{-1} A - I)x_{k} - \widetilde{A}^{-1}b
+$$
+
+For this to work, two conditions must be satisfied:
+
+  * $\widetilde{A}$ must be easy to invert.
+  * $\widetilde{A}$ must sufficiently resemble $A$ to get convergence.
+
