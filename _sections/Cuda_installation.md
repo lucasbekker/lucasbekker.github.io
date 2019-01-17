@@ -38,8 +38,13 @@ One of the prerequisites is a CUDA capable device of an architecture newer than 
 
 NVIDIA docker Installation instructions:
 
-    # Install docker (provided by Canonical) and curl
-    sudo apt install docker.io curl
+    # Add docker-ce repository
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    sudo apt update
+    
+    # Install docker (provided by docker)
+    sudo apt install docker-ce curl
 
     # Add the NVIDIA docker repository to the system
     curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
