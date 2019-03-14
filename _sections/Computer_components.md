@@ -159,9 +159,19 @@ It should be noted that not all computers have a GPU. Servers and embedded syste
 
 As PC's grew more capable, the tasks placed on GPU's also grew. The traditional GPU was not much more than a [framebuffer](https://en.wikipedia.org/wiki/Framebuffer), but the introduction of graphical user interfaces and video games gave rise to 2D and 3D requirements. Filling the frame buffer with data used to be a task of the CPU, but graphics accelerators took over most of the common graphics drawing commands from the CPU. Accelerators for 2D, accelerators for 3D and the frame buffer where combined into a single entity now known as a GPU.
 
-Personal computer based gaming evolved into a huge industry, requiring ever more powerful GPU's to sustain the demand for graphical compute workloads. The hardware became capable and versatile enough to take over additional tasks from the CPU, most notably media encoding and decoding. At this point, the pattern of the GPU taking over tasks from the CPU was well established. Anticipating that this trend would only continue, reinforced by the first forays of scientific computing on the GPU by manipulating shaders, NVIDIA decided that the way in which programmers should have access to the compute capabilities of GPU's needed to change into a less graphics centered manner. This idea came to fruition in the way of Compute Unified Device Architecture, or CUDA.
+Personal computer based gaming evolved into a huge industry, requiring ever more powerful GPU's to sustain the demand for graphical compute workloads. The hardware became capable and versatile enough to take over additional tasks from the CPU, most notably media encoding and decoding. At this point, the pattern of the GPU taking over tasks from the CPU was well established. Anticipating that this trend would only continue, reinforced by the first forays of scientific computing on the GPU by manipulating shaders, NVIDIA decided that the way in which programmers should have access to the compute capabilities of GPU's needed to change into a less graphics centered manner. This idea came to fruition in the way of Compute Unified Device Architecture, or CUDA. Other GPU manufacturers followed suit and often provide a similar architecture to CUDA.
 
 ###### System on a Chip
+
+Like modern CPU's, GPU's can also be described as systems on a chip, or SoC. They contain many of the same subsystems as modern CPU's:
+
+ - Cores
+ - Memory controller
+ - Cache
+ - Interfaces
+ - Video engine
+
+Their functions don't differ that much from their CPU counterparts, other than the fact that they are optimized for their graphics related workloads and the fact that the cores are not of the general purpose kind. This makes it impossible for a GPU to perform certain tasks, like running an operating system.
 
 ###### NVIDIA Volta
 
