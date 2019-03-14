@@ -153,6 +153,14 @@ The total bandwidth of a QPI/UPI connection is its transfer speed specification 
 
 ##### Basics of a GPU
 
+GPU (Graphics Processing Unit), graphics card and video card are all names for the piece of hardware inside a computer that is responsible for creating the image on the display of a PC. GPU's can be divided into two groups; dedicated and integrated. Integrated GPU's are part of the CPU SoC, whereas dedicated GPU's are separate circuitry's, often housed on their own PCB's. These separate PCB's are usually referred to as "cards", which is where the names graphics card and video card stems from.
+
+It should be noted that not all computers have a GPU. Servers and embedded systems are often "headless", which means without a display. They do not explicitly require a GPU, and as such sometimes don't have one. Interfacing with these systems is often possible via a serial connection. However, not having a GPU is very uncommon these days, even for headless servers.
+
+As PC's grew more capable, the tasks placed on GPU's also grew. The traditional GPU was not much more than a [framebuffer](https://en.wikipedia.org/wiki/Framebuffer), but the introduction of graphical user interfaces and video games gave rise to 2D and 3D requirements. Filling the frame buffer with data used to be a task of the CPU, but graphics accelerators took over most of the common graphics drawing commands from the CPU. Accelerators for 2D, accelerators for 3D and the frame buffer where combined into a single entity now known as a GPU.
+
+Personal computer based gaming evolved into a huge industry, requiring ever more powerful GPU's to sustain the demand for graphical compute workloads. The hardware became capable and versatile enough to take over additional tasks from the CPU, most notably media encoding and decoding. At this point, the pattern of the GPU taking over tasks from the CPU was well established. Anticipating that this trend would only continue, reinforced by the first forays of scientific computing on the GPU by manipulating shaders, NVIDIA decided that the way in which programmers should have access to the compute capabilities of GPU's needed to change into a less graphics centered manner. This idea came to fruition in the way of Compute Unified Device Architecture, or CUDA.
+
 ###### System on a Chip
 
 ###### NVIDIA Volta
