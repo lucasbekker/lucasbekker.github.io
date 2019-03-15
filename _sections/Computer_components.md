@@ -201,14 +201,6 @@ Graphics cards are more divergent in their operation from microarchitecture to m
 
 ##### Programming model
 
-##### Streaming Multiprocessors
-
-###### Superscalar
-
-###### Cache
-
-###### Cuda cores and execution units
-
 ###### SIMT
 
 Instruction level parallelism is critical to achieving high performance on modern floating point execution units, while thread level parallelism is required to sustain multi core designs. Combining these two forms of parallelism results in the [MIMD](https://en.wikipedia.org/wiki/MIMD) architecture as defined by [Flynn's taxonomy](https://en.wikipedia.org/wiki/Flynn%27s_taxonomy). The problem with MIMD is that the two forms of parallelism encapsulated in MIMD require different programming techniques to utilize, which is undesirable.
@@ -216,6 +208,14 @@ Instruction level parallelism is critical to achieving high performance on moder
 [SIMT](https://en.wikipedia.org/wiki/Single_instruction,_multiple_threads) stands for "single instruction, multiple threads" and has been introduced by NVIDIA. It aims to provide a single execution model on hardware that concurs to the MIMD architecture, requiring only one programming technique to utilize. The effort of dividing the workload amongst the different cores and registers of the execution units is much less of a responsibility of the programmer, but more so of the toolchain. GPGPU programming using CUDA relies on SIMT, where the programmer can control various aspects using concepts like "threads", "warps", "blocks" and "grids". This allows the programmer to utilize the hardware in the most effective manner, without having to resort to explicit control over registers. However, it remains important to understand that the SIMT and latency hiding techniques provided by CUDA are basically abstractions of the MIMD architecture and SMT.
 
 Dividing tasks in "threads" (in the SIMT sense) creates the illusion of very high flexibility. Threads on CPU's are fully independent and the programmer might expect that a SIMT thread behaves in the same way. This is not the case, because the underlying instruction level parallelism requires the SIMT threads to contain the same instructions. Diverging control flow paths, like "if else" blocks, in SIMT threads can lead to very sub optimal utilization because of this mechanism.
+
+##### Streaming Multiprocessors
+
+###### Superscalar
+
+###### Cache
+
+###### Cuda cores and execution units
 
 ###### SMT
 
