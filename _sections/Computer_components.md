@@ -173,16 +173,31 @@ Like modern CPU's, GPU's can also be described as systems on a chip, or SoC. The
 
 Their functions don't differ that much from their CPU counterparts, other than the fact that they are optimized for their graphics related workloads and the fact that the cores are not of the general purpose kind. This makes it impossible for a GPU to perform certain tasks, like running an operating system.
 
+##### ISA and IR
+
+The instruction set architecture of a CPU is one of its most defining aspects. The same goes for GPU's, but the effect on the end user is much less severe.
+
+The concept of an ISA was introduced to aid in the quest for code portability. Software was no longer written in machine specific code, but using instructions provided by the ISA. This made it possible for software to run on physically different hardware, as long as they conform to the same ISA. The ISA concept was a huge step towards code portability, but full code portability was not yet achieved. A c++ program compiled on an x86 based computer will not run on an ARM based smartphone, because they adhere to different ISA's.
+
+The next step towards achieving code portability is the [process virtual machine](https://en.wikipedia.org/wiki/Virtual_machine#Process_virtual_machines), sometimes referred to as a "runtime environment". The best known example of a process virtual machine is the Java Virtual Machine, also know as JVM or JRE. A process virtual machine is a piece of software that acts as a [translation layer](https://www.utdallas.edu/~muratk/courses/cloud11f_files/smith-vm-overview.pdf) between the OS/ISA and the process virtual machine target code. All applications that are written (exclusively) in the virtual machine target code can run correctly on all platforms that have the process virtual machine available. This is why pure Python code can run both on an x86 based computer, as well as an ARM based android smartphone.
+
+Code portability is an important concern for GPU's as well. GPU's from NVIDIA have a different ISA then GPU's from AMD, but users still expect that the applications they run on their computer functions correctly, irrespective of the brand of GPU that they have in their system. Achieving this goal is a complex and multifaceted task, but a large part of the solution is the "driver" of the GPU.
+
+A GPU driver is at some level very comparable to a process virtual machine. It is a piece of software that acts as a translation layer between the hardware of the GPU and the "code" it receives. When this "code" is intended to manipulate the image on the screen, it is typically based on a graphics [API](https://en.wikipedia.org/wiki/Application_programming_interface) like [OpenGL](https://www.opengl.org/), [Vulkan](https://www.khronos.org/vulkan/) or [DirectX](https://en.wikipedia.org/wiki/DirectX). GPGPU applications typically make use of CUDA, OpenCL or other API's capable of GPU offloading, like modern versions of OpenMP and OpenACC.
+
+Because the GPU driver needs to support a plethora of API's, GPU manufacturers generally resort to a solution that contains an intermediate representation (IR). This means that the driver contains various software libraries that map the "commands" of an API to the IR and a piece of software that translates the IR to machine instructions. This IR is the closest thing to an ISA that GPU manufacturers provide, with the commonality that code written in this IR language will run on all systems that contain the IR to machine code translator, just as code compiled for a specific ISA will run on all the hardware that conforms to this ISA.
+
+###### Microarchitecture
+
+
+
 ###### NVIDIA Volta
 
 There are many vendors of GPU's ([AMD](https://www.amd.com/en), [NVIDIA](https://www.nvidia.com/en-us/), [Intel](https://www.intel.com/content/www/us/en/homepage.html), [Imagination Technologies](https://www.imgtec.com/)), most of which have products capable of some sort of compute support via [OpenCL](https://www.khronos.org/opencl/). OpenCL stands for Open Compute Language and is a fully open source and portable framework for compute on CPU's and GPU's. The main competitor of OpenCL is [CUDA](https://en.wikipedia.org/wiki/CUDA), which is proprietary to NVIDIA.
 
 CUDA is somewhat older than OpenCL and had a mature implementation before OpenCL, allowing CUDA to develop a head start with respect to the development of a GPGPU compute ecosystem. Combined with the very large dedicated graphics card market share of NVIDIA, results in CUDA being a dominant force in the GPGPU compute world. The most obvious disadvantage of this situation is vendor lock-in in NVIDIA's favor, which is reflected in this text, as it will focus on NVIDIA products.
 
-Graphics cards are more divergent in their operation from microarchitecture to microarchitecture then CPU's are, making it more difficult to discuss certain topics in a general fashion. The main microarchitecture of interest to this text is [Volta](https://en.wikipedia.org/wiki/Volta_(microarchitecture)), as implemented by the Tesla V100 card. The Tesla V100 is a GPU (without display functionality) specifically developed for GPGPU purposes, featuring hardware capable of half and double precision floating
-point operations, special "tensor" cores and very high memory bandwidth. These features are unavailable to most other NVIDIA GPU's (at the time of writing), making the Tesla V100 an obvious choice as GPGPU accelerator.
-
-##### ISA
+Graphics cards are more divergent in their operation from microarchitecture to microarchitecture then CPU's are, making it more difficult to discuss certain topics in a general fashion. The main microarchitecture of interest to this text is [Volta](https://en.wikipedia.org/wiki/Volta_(microarchitecture)), as implemented by the Tesla V100 card. The Tesla V100 is a GPU (without display functionality) specifically developed for GPGPU purposes, featuring hardware capable of half and double precision floating point operations, special "tensor" cores and very high memory bandwidth. These features are unavailable to most other NVIDIA GPU's (at the time of writing), making the Tesla V100 an obvious choice as GPGPU accelerator.
 
 ##### Streaming Multiprocessors
 
