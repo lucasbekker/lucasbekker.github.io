@@ -189,7 +189,7 @@ Because the GPU driver needs to support a plethora of API's, GPU manufacturers g
 
 ###### Microarchitecture
 
-
+Microarchitectures in the GPU sense are slightly different from microarchitectures in the CPU sense, because they are not really implementations of an ISA. Nevertheless, the various generations of GPU chips are categorized as different microarchitectures.
 
 ###### NVIDIA Volta
 
@@ -198,6 +198,8 @@ There are many vendors of GPU's ([AMD](https://www.amd.com/en), [NVIDIA](https:/
 CUDA is somewhat older than OpenCL and had a mature implementation before OpenCL, allowing CUDA to develop a head start with respect to the development of a GPGPU compute ecosystem. Combined with the very large dedicated graphics card market share of NVIDIA, results in CUDA being a dominant force in the GPGPU compute world. The most obvious disadvantage of this situation is vendor lock-in in NVIDIA's favor, which is reflected in this text, as it will focus on NVIDIA products.
 
 Graphics cards are more divergent in their operation from microarchitecture to microarchitecture then CPU's are, making it more difficult to discuss certain topics in a general fashion. The main microarchitecture of interest to this text is [Volta](https://en.wikipedia.org/wiki/Volta_(microarchitecture)), as implemented by the Tesla V100 card. The Tesla V100 is a GPU (without display functionality) specifically developed for GPGPU purposes, featuring hardware capable of half and double precision floating point operations, special "tensor" cores and very high memory bandwidth. These features are unavailable to most other NVIDIA GPU's (at the time of writing), making the Tesla V100 an obvious choice as GPGPU accelerator.
+
+##### Programming model
 
 ##### Streaming Multiprocessors
 
