@@ -173,6 +173,14 @@ Like modern CPU's, GPU's can also be described as systems on a chip, or SoC. The
 
 Their functions don't differ that much from their CPU counterparts, other than the fact that they are optimized for their graphics related workloads and the fact that the cores are not of the general purpose kind. This makes it impossible for a GPU to perform certain tasks, like running an operating system.
 
+###### NVIDIA
+
+There are many vendors of GPU's ([AMD](https://www.amd.com/en), [NVIDIA](https://www.nvidia.com/en-us/), [Intel](https://www.intel.com/content/www/us/en/homepage.html), [Imagination Technologies](https://www.imgtec.com/)), most of which have products capable of some sort of compute support via [OpenCL](https://www.khronos.org/opencl/). OpenCL stands for Open Compute Language and is a fully open source and portable framework for compute on CPU's and GPU's. The main competitor of OpenCL is [CUDA](https://en.wikipedia.org/wiki/CUDA), which is proprietary to NVIDIA.
+
+CUDA is somewhat older than OpenCL and had a mature implementation before OpenCL, allowing CUDA to develop a head start with respect to the development of a GPGPU compute ecosystem. Combined with the very large dedicated graphics card market share of NVIDIA, results in CUDA being a dominant force in the GPGPU compute world. The most obvious disadvantage of this situation is vendor lock-in in NVIDIA's favor.
+
+Many of the topics that will be discussed are manufacturer agnostic, but certain aspects like hardware design specifics and programming models are manufacturer specific. This text will try to be as generic as possible, but uses NVIDIA product as a baseline. 
+
 ##### ISA and IR
 
 The instruction set architecture of a CPU is one of its most defining aspects. The same goes for GPU's, but the effect on the end user is much less severe.
@@ -187,17 +195,17 @@ A GPU driver is at some level very comparable to a process virtual machine. It i
 
 Because the GPU driver needs to support a plethora of API's, GPU manufacturers generally resort to a solution that contains an intermediate representation (IR). This means that the driver contains various software libraries that map the "commands" of an API to the IR and a piece of software that translates the IR to machine instructions. This IR is the closest thing to an ISA that GPU manufacturers provide, with the commonality that code written in this IR language will run on all systems that contain the IR to machine code translator, just as code compiled for a specific ISA will run on all the hardware that conforms to this ISA.
 
-###### Microarchitecture
+###### Microarchitecture and extentions
 
 Microarchitectures in the GPU sense are slightly different from microarchitectures in the CPU sense, because they are not really implementations of an ISA. Nevertheless, the various generations of GPU chips are categorized as different microarchitectures.
 
+Extending the functionality of a CPU involves ISA extensions, like AVX2. Extending the functionality of a GPU is achieved somewhat differently, because backwards compatibility can largely be provided by the IR to machine instructions translator software. However, exposing new hardware functionalities to the user sometimes requires additions to the IR language. These additions come in the form of new versions of the IR, which are generally backwards compatible. This means that code that is written in IR language version X will also execute on a system that provides IR language version Y, as long as X < Y.
+
 ###### NVIDIA Volta
 
-There are many vendors of GPU's ([AMD](https://www.amd.com/en), [NVIDIA](https://www.nvidia.com/en-us/), [Intel](https://www.intel.com/content/www/us/en/homepage.html), [Imagination Technologies](https://www.imgtec.com/)), most of which have products capable of some sort of compute support via [OpenCL](https://www.khronos.org/opencl/). OpenCL stands for Open Compute Language and is a fully open source and portable framework for compute on CPU's and GPU's. The main competitor of OpenCL is [CUDA](https://en.wikipedia.org/wiki/CUDA), which is proprietary to NVIDIA.
+Maintaining backwards compatibility in software is a lot more flexible then in hardware, which is one of the reasons that succeeding microarchitectures of GPU's can vary rather wildly in design. This makes it prudent to zoom in on a specific microarchitecture for certain parts of this text, namely NVIDIA [Volta](https://en.wikipedia.org/wiki/Volta_(microarchitecture)).
 
-CUDA is somewhat older than OpenCL and had a mature implementation before OpenCL, allowing CUDA to develop a head start with respect to the development of a GPGPU compute ecosystem. Combined with the very large dedicated graphics card market share of NVIDIA, results in CUDA being a dominant force in the GPGPU compute world. The most obvious disadvantage of this situation is vendor lock-in in NVIDIA's favor, which is reflected in this text, as it will focus on NVIDIA products.
-
-Graphics cards are more divergent in their operation from microarchitecture to microarchitecture then CPU's are, making it more difficult to discuss certain topics in a general fashion. The main microarchitecture of interest to this text is [Volta](https://en.wikipedia.org/wiki/Volta_(microarchitecture)), as implemented by the Tesla V100 card. The Tesla V100 is a GPU (without display functionality) specifically developed for GPGPU purposes, featuring hardware capable of half and double precision floating point operations, special "tensor" cores and very high memory bandwidth. These features are unavailable to most other NVIDIA GPU's (at the time of writing), making the Tesla V100 an obvious choice as GPGPU accelerator.
+The NVIDIA Volta microarchitecture is developed specifically for GPGPU purposes, and as such is (almost) exclusively used by various incarnations of the Tesla V100 card. It is capable of unrestricted half and double precision floating point operations, has special "tensor" cores and very high memory bandwidth. These features are unavailable to most other NVIDIA consumer grade GPU's (at the time of writing) and are very important to achieving high performance in various GPGPU applications.
 
 ##### Programming model
 
