@@ -203,11 +203,19 @@ Extending the functionality of a CPU involves ISA extensions, like AVX2. Extendi
 
 ###### NVIDIA Volta
 
-Maintaining backwards compatibility in software is a lot more flexible then in hardware, which is one of the reasons that succeeding microarchitectures of GPU's can vary rather wildly in design. This makes it prudent to zoom in on a specific microarchitecture for certain parts of this text, namely NVIDIA [Volta](https://en.wikipedia.org/wiki/Volta_(microarchitecture)).
+Maintaining backwards compatibility in software is a lot more flexible then in hardware, which is one of the reasons that succeeding microarchitectures of GPU's can vary rather wildly in design. This makes it prudent to zoom in on a specific microarchitecture, namely NVIDIA [Volta](https://en.wikipedia.org/wiki/Volta_(microarchitecture)).
 
 The NVIDIA Volta microarchitecture is developed specifically for GPGPU purposes, and as such is (almost) exclusively used by various incarnations of the Tesla V100 card. It is capable of unrestricted half and double precision floating point operations, has special "tensor" cores and very high memory bandwidth. These features are unavailable to most other NVIDIA consumer grade GPU's (at the time of writing) and are very important to achieving high performance in various GPGPU applications.
 
 ##### Programming model
+
+The programming model of a CPU is rather straightforward. An application consists of one or more processes, where mathematical applications almost always use a single process. Such a process consists of the data and the instruction streams (threads) of the application. If an application uses multiple instruction streams to divide the workload, it is said that that application uses "thread level parallelism". Each thread of the process is assigned to one of the available (virtual) CPU cores by the OS, where the instructions contained in the thread are executed (sequentially). When a thread contains SIMD instructions, it is said that the thread uses "instruction level parallelism".
+
+The programming model of a GPU has a more layered structure. The mostly embarrassingly parallel workloads intended for the GPU gave rise to a programming model that was designed from the ground up to cater to the needs of splitting up an application into very many independent pieces. Some of the nomenclature found in the programming model for GPU's is manufacturer specific, but the underlying concepts are usually present in the implementations of all the manufacturers of GPU's. This text will adhere to the names as they are presented in the documentation of [NVIDIA PTX](https://docs.nvidia.com/cuda/parallel-thread-execution/index.html), but the names of the equivalent concepts within OpenCL will be be provided for convenience.
+
+###### SPMD
+
+Single program, multiple data [(SPMD)](https://en.wikipedia.org/wiki/SPMD) is the abstraction level that forms the base of the GPU programming model. Comparing SPMD to other members of Flynn's taxonomy shows that the low level concept of "instruction" has been replaced by the high level abstraction "program". This makes it both more accessible to the uninitiated as well as applicable to a wider range of situations. 
 
 ###### SIMT
 
