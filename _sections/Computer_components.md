@@ -157,9 +157,9 @@ GPU (Graphics Processing Unit), graphics card and video card are all names for t
 
 It should be noted that not all computers have a GPU. Servers and embedded systems are often "headless", which means without a display. They do not explicitly require a GPU, and as such sometimes don't have one. Interfacing with these systems is often possible via a serial connection. However, not having a GPU is very uncommon these days, even for headless servers.
 
-As PC's grew more capable, the tasks placed on GPU's also grew. The traditional GPU was not much more than a [framebuffer](https://en.wikipedia.org/wiki/Framebuffer), but the introduction of graphical user interfaces and video games gave rise to 2D and 3D requirements. Filling the frame buffer with data used to be a task of the CPU, but graphics accelerators took over most of the common graphics drawing commands from the CPU. Accelerators for 2D, accelerators for 3D and the frame buffer where combined into a single entity now known as a GPU.
+As PC's grew more capable, the tasks placed on GPU's also grew. The traditional GPU was not much more than a [framebuffer](https://en.wikipedia.org/wiki/Framebuffer), but the introduction of graphical user interfaces and video games gave rise to 2D and 3D requirements. Filling the frame buffer with data used to be a task of the CPU, but graphics accelerators took over most of the common graphics drawing commands from the CPU. Accelerators for 2D, accelerators for 3D and the frame buffer where combined into a single device now known as a GPU.
 
-Personal computer based gaming evolved into a huge industry, requiring ever more powerful GPU's to sustain the demand for graphical compute workloads. The hardware became capable and versatile enough to take over additional tasks from the CPU, most notably media encoding and decoding. At this point, the pattern of the GPU taking over tasks from the CPU was well established. Anticipating that this trend would only continue, reinforced by the first forays of scientific computing on the GPU by manipulating shaders, NVIDIA decided that the way in which programmers should have access to the compute capabilities of GPU's needed to change into a less graphics centered manner. This idea came to fruition in the way of Compute Unified Device Architecture, or CUDA. Other GPU manufacturers followed suit and often provide a similar architecture to CUDA.
+Video gaming evolved into a huge industry, requiring ever more powerful GPU's to sustain the demand for graphical compute workloads. The hardware became capable and versatile enough to take over additional tasks from the CPU, most notably media encoding and decoding. At this point, the pattern of the GPU taking over tasks from the CPU was well established. Anticipating that this trend would only continue, reinforced by the first forays of scientific computing on the GPU by manipulating shaders, NVIDIA decided that the way in which programmers should have access to the compute capabilities of GPU's needed to change into a less graphics centered manner. This idea came to fruition in the way of Compute Unified Device Architecture, or CUDA. Other GPU manufacturers followed suit and often provide a similar architecture to CUDA.
 
 ###### System on a Chip
 
@@ -172,6 +172,10 @@ Like modern CPU's, GPU's can also be described as systems on a chip, or SoC. The
  - Video engine
 
 Their functions don't differ that much from their CPU counterparts, other than the fact that they are optimized for their graphics related workloads and the fact that the cores are not of the general purpose kind. This makes it impossible for a GPU to perform certain tasks, like running an operating system.
+
+###### Massively parallel
+
+GPU's have a lot in common with CPU's, but the very specific workloads envisioned for GPU's caused them to be very distinctive in one aspect, they are massively parallel in nature. A typical high end CPU like the Intel Xeon Gold 6132 has a total of 28 floating point execution units, whereas a NVIDIA V100 GPU has 320 floating point execution units.
 
 ###### NVIDIA
 
@@ -225,15 +229,23 @@ OpenCL: "host" is equivalent to "host device" and "device" is equivalent to "com
 
 ###### SPMD and kernel
 
-Single program, multiple data [(SPMD)](https://en.wikipedia.org/wiki/SPMD) is the abstraction level that forms the base of the GPU programming model. Comparing SPMD to other members of Flynn's taxonomy shows that the low level concept of "instruction" has been replaced by the high level abstraction "program". This makes it both more accessible to the uninitiated as well as applicable to a wider range of situations. The disadvantage is that the additional abstraction creates a greater distance between the concept and the implementation.
+Single program, multiple data ([SPMD](https://en.wikipedia.org/wiki/SPMD)) is the abstraction level that forms the base of the GPU programming model. Comparing SPMD to other members of Flynn's taxonomy shows that the low level concept of "instruction" has been replaced by the high level abstraction "program". This makes it both more accessible to the uninitiated as well as applicable to a wider range of situations. The disadvantage is that the additional abstraction creates a greater distance between the concept and the implementation.
+
+SPMD is a technique that is centered around the idea that a relatively simple and data independent "program" needs to be applied to a large quantity of small data sets. This "program", which is called a [kernel](https://en.wikipedia.org/wiki/Compute_kernel) in a GPGPU setting, is executed in parallel on the small data sets, reducing the overall runtime compared to a sequential approach.
 
 ###### SIMT
 
-Instruction level parallelism is critical to achieving high performance on modern floating point execution units, while thread level parallelism is required to sustain multi core designs. Combining these two forms of parallelism results in the [MIMD](https://en.wikipedia.org/wiki/MIMD) architecture as defined by [Flynn's taxonomy](https://en.wikipedia.org/wiki/Flynn%27s_taxonomy). The problem with MIMD is that the two forms of parallelism encapsulated in MIMD require different programming techniques to utilize, which is undesirable.
+A kernel consists of a chain of instructions, which typically contain many floating point operations if they are to be executed on the GPU. Executing these instructions efficiently on many core and deep registers hardware, like GPU's, relies heavily on both instruction level parallelism and thread level parallelism. Combining these two forms of parallelism results in the [MIMD](https://en.wikipedia.org/wiki/MIMD) architecture as defined by [Flynn's taxonomy](https://en.wikipedia.org/wiki/Flynn%27s_taxonomy). The problem with MIMD is that the two forms of parallelism encapsulated in MIMD require different programming techniques to utilize, which is undesirable.
 
 [SIMT](https://en.wikipedia.org/wiki/Single_instruction,_multiple_threads) stands for "single instruction, multiple threads" and has been introduced by NVIDIA. It aims to provide a single execution model on hardware that concurs to the MIMD architecture, requiring only one programming technique to utilize. The effort of dividing the workload amongst the different cores and registers of the execution units is much less of a responsibility of the programmer, but more so of the toolchain. GPGPU programming using CUDA relies on SIMT, where the programmer can control various aspects using concepts like "threads", "warps", "blocks" and "grids". This allows the programmer to utilize the hardware in the most effective manner, without having to resort to explicit control over registers. However, it remains important to understand that the SIMT and latency hiding techniques provided by CUDA are basically abstractions of the MIMD architecture and SMT.
 
+###### Threads and warps
+
+A SIMT "thread" is a very different beast compared to a CPU thread. 
+
 Dividing tasks in "threads" (in the SIMT sense) creates the illusion of very high flexibility. Threads on CPU's are fully independent and the programmer might expect that a SIMT thread behaves in the same way. This is not the case, because the underlying instruction level parallelism requires the SIMT threads to contain the same instructions. Diverging control flow paths, like "if else" blocks, in SIMT threads can lead to very sub optimal utilization because of this mechanism.
+
+OpenCL: "thread" is equivalent to "work item" and "warp" is equivalent to "wavefront".
 
 ##### Streaming Multiprocessors
 
