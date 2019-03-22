@@ -213,15 +213,13 @@ The NVIDIA Volta microarchitecture is developed specifically for GPGPU purposes,
 
 ##### Programming model
 
-The programming model of a GPU has a more layered structure than the programming model of a traditional CPU based application. The mostly embarrassingly parallel workloads intended for the GPU gave rise to a programming model that was designed from the ground up to cater to the needs of splitting up an application into very many independent pieces. Some of the nomenclature found in the programming model for GPU's is manufacturer specific, but the underlying concepts are usually present in the implementations of all the manufacturers of GPU's. This text will adhere to the names as they are presented in the documentation of [NVIDIA PTX](https://docs.nvidia.com/cuda/parallel-thread-execution/index.html), but the names of the equivalent concepts within OpenCL will be be provided for convenience.
-
-###### CPU programming model
-
-The programming model of a CPU is rather straightforward. An application consists of one or more processes, where mathematical applications almost always use a single process. Such a process consists of the data and the instruction streams (threads) of the application. If an application uses multiple instruction streams to divide the workload, it is said that that application uses "thread level parallelism". Each thread of the process is assigned to one of the available (virtual) CPU cores by the OS, where the instructions contained in the thread are executed (sequentially). When a thread contains SIMD instructions, it is said that the thread uses "instruction level parallelism".
+The programming model of a GPU has a more layered structure than the programming model of a traditional CPU based application. The mostly embarrassingly parallel workloads intended for the GPU gave rise to a programming model that was designed from the ground up to cater to the needs of splitting up an application into many independent pieces. Some of the nomenclature found in the programming model for GPU's is manufacturer specific, but the underlying concepts are usually present in the implementations of all the manufacturers of GPU's. This text will adhere to the names as they are presented in the documentation of [NVIDIA PTX](https://docs.nvidia.com/cuda/parallel-thread-execution/index.html), but the names of the equivalent concepts within OpenCL will be be provided for convenience.
 
 ###### Host and device
 
-GPGPU applications always consist of two parts, elements of the application that run on the "host" (CPU) and elements that run on the "device" (GPU). The most important reason to distinguish between host and device is that they both have their own memory pool. The GPU is unable to execute instructions on data that is stored on the "host memory" (main memory) and the CPU is unable to execute instructions on data that is stored on the "device memory" ([VRAM](https://en.wikipedia.org/wiki/Video_card#Video_memory)). This necessitates transferring data between host and device, which are (generally) connected via the [PCI-e](https://lucasbekker.github.io/Computer_components#pci-express) interface.
+One of the most important aspects of the GPU programming model is the distinction between "host" and "device".
+
+GPGPU applications basically contain two parts, sections that run on the host (CPU) and sections that run on the device (GPU). This is important because they both have their own and exclusive memory pool. The GPU is unable to execute instructions on data that is stored on the "host memory" (main memory) and the CPU is unable to execute instructions on data that is stored on the "device memory" ([VRAM](https://en.wikipedia.org/wiki/Video_card#Video_memory)). This necessitates transferring data between host and device, which are (generally) connected via the [PCI-e](https://lucasbekker.github.io/Computer_components#pci-express) interface.
 
 Transferring data to and from the device is a time consuming operation and can easily become a bottleneck for the performance of the application. In an effort to reduce the data transfers to an absolute minimum, management of the data location has been left to the programmer, so that it can be tailored to the requirements of the algorithm of the GPGPU application.
 
@@ -229,13 +227,13 @@ OpenCL: "host" is equivalent to "host device" and "device" is equivalent to "com
 
 ###### SPMD and kernel
 
-Single program, multiple data ([SPMD](https://en.wikipedia.org/wiki/SPMD)) is the abstraction level that forms the base of the GPU programming model. Comparing SPMD to other members of Flynn's taxonomy shows that the low level concept of "instruction" has been replaced by the high level abstraction "program". This makes it both more accessible to the uninitiated as well as applicable to a wider range of situations. The disadvantage is that the additional abstraction creates a greater distance between the concept and the implementation.
+Single program, multiple data ([SPMD](https://en.wikipedia.org/wiki/SPMD)) is the abstraction level that forms the base of the GPU programming model. Comparing SPMD to other members of [Flynn's taxonomy](https://en.wikipedia.org/wiki/Flynn%27s_taxonomy) shows that the low level concept of "instruction" has been replaced by the high level abstraction "program". This makes it both more accessible to the uninitiated as well as applicable to a wider range of situations. The disadvantage is that the additional abstraction creates a greater distance between the concept and the implementation.
 
 SPMD is a technique that is centered around the idea that a relatively simple and data independent "program" needs to be applied to a large quantity of small data sets. This "program", which is called a [kernel](https://en.wikipedia.org/wiki/Compute_kernel) in a GPGPU setting, is executed in parallel on the small data sets, reducing the overall runtime compared to a sequential approach.
 
 ###### SIMT
 
-A kernel consists of a chain of instructions, which typically contain many floating point operations if they are to be executed on the GPU. Executing these instructions efficiently on many core and deep registers hardware, like GPU's, relies heavily on both instruction level parallelism and thread level parallelism. Combining these two forms of parallelism results in the [MIMD](https://en.wikipedia.org/wiki/MIMD) architecture as defined by [Flynn's taxonomy](https://en.wikipedia.org/wiki/Flynn%27s_taxonomy). The problem with MIMD is that the two forms of parallelism encapsulated in MIMD require different programming techniques to utilize, which is undesirable.
+A kernel consists of a chain of instructions, which typically contain many floating point operations if they are to be executed on the GPU. Executing these instructions efficiently on many core and deep registers hardware, like GPU's, relies heavily on both instruction level parallelism and thread level parallelism. Combining these two forms of parallelism results in the [MIMD](https://en.wikipedia.org/wiki/MIMD) architecture as defined by Flynn's taxonomy. The problem with MIMD is that the two forms of parallelism encapsulated in MIMD require different programming techniques to utilize, which is undesirable.
 
 [SIMT](https://en.wikipedia.org/wiki/Single_instruction,_multiple_threads) stands for "single instruction, multiple threads" and has been introduced by NVIDIA. It aims to provide a single execution model on hardware that concurs to the MIMD architecture, requiring only one programming technique to utilize. The effort of dividing the workload amongst the different cores and registers of the execution units is much less of a responsibility of the programmer, but more so of the [toolchain](https://en.wikipedia.org/wiki/Toolchain). GPGPU programming using CUDA relies on SIMT, where the programmer can control various aspects using concepts like "threads", "warps", "blocks" and "grids". This allows the programmer to utilize the hardware in the most effective manner, without having to resort to explicit control over registers. However, it remains important to understand that the SIMT and latency hiding techniques provided by CUDA are basically abstractions of the MIMD architecture and SMT.
 
@@ -262,6 +260,12 @@ The advantage of SIMT threads is that they are relatively intuitive, because the
 The toolchain is responsible for grouping the threads into warps, which reduces the workload of the programmer. The downside of this loss of explicit control is that threads that contain data dependant diverging control flow patterns, like "if else" blocks, might be grouped together in a single warp. This means that various subsections of the same warp have to perform different instructions, which is against the intended operation of warps. This problem is circumvented by applying a "mask" to the threads of a warp, defining if a thread is active or not. This ensures that all the active threads of the warp perform the same instruction, with the various differing subsections of the warp masked consecutively.
 
 OpenCL: "thread" is equivalent to "work item" and "warp" is equivalent to "wavefront".
+
+###### Blocks and grids
+
+Warps are the most obvious grouping method of threads from the hardware perspective, but are not very convenient from an algorithm design point of view. 
+
+OpenCL: "block" is equivalent to "work group" and "grid" is equivalent to "NDRange".
 
 ##### Streaming Multiprocessors
 
