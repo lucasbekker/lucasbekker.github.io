@@ -237,13 +237,29 @@ SPMD is a technique that is centered around the idea that a relatively simple an
 
 A kernel consists of a chain of instructions, which typically contain many floating point operations if they are to be executed on the GPU. Executing these instructions efficiently on many core and deep registers hardware, like GPU's, relies heavily on both instruction level parallelism and thread level parallelism. Combining these two forms of parallelism results in the [MIMD](https://en.wikipedia.org/wiki/MIMD) architecture as defined by [Flynn's taxonomy](https://en.wikipedia.org/wiki/Flynn%27s_taxonomy). The problem with MIMD is that the two forms of parallelism encapsulated in MIMD require different programming techniques to utilize, which is undesirable.
 
-[SIMT](https://en.wikipedia.org/wiki/Single_instruction,_multiple_threads) stands for "single instruction, multiple threads" and has been introduced by NVIDIA. It aims to provide a single execution model on hardware that concurs to the MIMD architecture, requiring only one programming technique to utilize. The effort of dividing the workload amongst the different cores and registers of the execution units is much less of a responsibility of the programmer, but more so of the toolchain. GPGPU programming using CUDA relies on SIMT, where the programmer can control various aspects using concepts like "threads", "warps", "blocks" and "grids". This allows the programmer to utilize the hardware in the most effective manner, without having to resort to explicit control over registers. However, it remains important to understand that the SIMT and latency hiding techniques provided by CUDA are basically abstractions of the MIMD architecture and SMT.
+[SIMT](https://en.wikipedia.org/wiki/Single_instruction,_multiple_threads) stands for "single instruction, multiple threads" and has been introduced by NVIDIA. It aims to provide a single execution model on hardware that concurs to the MIMD architecture, requiring only one programming technique to utilize. The effort of dividing the workload amongst the different cores and registers of the execution units is much less of a responsibility of the programmer, but more so of the [toolchain](https://en.wikipedia.org/wiki/Toolchain). GPGPU programming using CUDA relies on SIMT, where the programmer can control various aspects using concepts like "threads", "warps", "blocks" and "grids". This allows the programmer to utilize the hardware in the most effective manner, without having to resort to explicit control over registers. However, it remains important to understand that the SIMT and latency hiding techniques provided by CUDA are basically abstractions of the MIMD architecture and SMT.
 
 ###### Threads and warps
 
-A SIMT "thread" is a very different beast compared to a CPU thread. 
+A thread in the traditional CPU context is a chain of instructions that can operate on one or more data streams, where multiple data streams are processed in parallel using the SIMD mechanism. The instructions in the thread represent the workload of the execution units in the CPU, meaning that an instruction contains a couple of items:
 
-Dividing tasks in "threads" (in the SIMT sense) creates the illusion of very high flexibility. Threads on CPU's are fully independent and the programmer might expect that a SIMT thread behaves in the same way. This is not the case, because the underlying instruction level parallelism requires the SIMT threads to contain the same instructions. Diverging control flow paths, like "if else" blocks, in SIMT threads can lead to very sub optimal utilization because of this mechanism.
+ - The type of execution unit that should process the instruction.
+ - The exact instruction that should be executed.
+ - The complete set of input data locations.
+ - The complete set of output data locations.
+
+A SIMT "thread" is different because it is more of an abstract concept, as it contains "incomplete" instructions:
+
+ - The type of execution unit that should process the instruction.
+ - The exact instruction that should be executed.
+ - An incomplete set of input data locations.
+ - An incomplete set of output data locations.
+
+This "incomplete" set of input and output data locations represent a single data stream of a SIMD capable execution unit, that is why a SIMT "thread" is sometimes referred to as a "SIMD lane instruction stream".
+
+The advantage of SIMT threads is that they are relatively intuitive, because they represent the workings of the compute kernel at the data stream level. However, they have the disadvantage that they do not have a simple mapping to the hardware that is supposed to execute them. This mapping of the threads to the "real" hardware instructions mostly comes down to grouping them such that a single group contains threads with compatible "incomplete" instruction sequences. This grouping of threads serves to fill the deep registers of the execution units and a single group of threads is called a "warp".
+
+The toolchain is responsible for grouping the threads into warps, which reduces the workload of the programmer. The downside of this loss of explicit control is that threads that contain data dependant diverging control flow patterns, like "if else" blocks, might be grouped together in a single warp. This means that various subsections of the same warp have to perform different instructions, which is against the intended operation of warps. This problem is circumvented by applying a "mask" to the threads of a warp, defining if a thread is active or not. This ensures that all the active threads of the warp perform the same instruction, with the various differing subsections of the warp masked consecutively.
 
 OpenCL: "thread" is equivalent to "work item" and "warp" is equivalent to "wavefront".
 
