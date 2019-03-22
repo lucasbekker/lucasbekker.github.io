@@ -233,7 +233,7 @@ SPMD is a technique that is centered around the idea that a relatively simple an
 
 ###### SIMT
 
-A kernel consists of a chain of instructions, which typically contain many floating point operations if they are to be executed on the GPU. Executing these instructions efficiently on many core and deep registers hardware, like GPU's, relies heavily on both instruction level parallelism and thread level parallelism. Combining these two forms of parallelism results in the [MIMD](https://en.wikipedia.org/wiki/MIMD) architecture as defined by Flynn's taxonomy. The problem with MIMD is that the two forms of parallelism encapsulated in MIMD require different programming techniques to utilize, which is undesirable.
+A kernel consists of a chain of instructions, which typically contain many floating point operations if they are to be executed on the GPU. Executing these instructions efficiently on many cores and deep registers hardware, like GPU's, relies heavily on both instruction level parallelism and thread level parallelism. Combining these two forms of parallelism results in the [MIMD](https://en.wikipedia.org/wiki/MIMD) architecture as defined by Flynn's taxonomy. The problem with MIMD is that the two forms of parallelism encapsulated in MIMD require different programming techniques to utilize, which is undesirable.
 
 [SIMT](https://en.wikipedia.org/wiki/Single_instruction,_multiple_threads) stands for "single instruction, multiple threads" and has been introduced by NVIDIA. It aims to provide a single execution model on hardware that concurs to the MIMD architecture, requiring only one programming technique to utilize. The effort of dividing the workload amongst the different cores and registers of the execution units is much less of a responsibility of the programmer, but more so of the [toolchain](https://en.wikipedia.org/wiki/Toolchain). GPGPU programming using CUDA relies on SIMT, where the programmer can control various aspects using concepts like "threads", "warps", "blocks" and "grids". This allows the programmer to utilize the hardware in the most effective manner, without having to resort to explicit control over registers. However, it remains important to understand that the SIMT and latency hiding techniques provided by CUDA are basically abstractions of the MIMD architecture and SMT.
 
@@ -242,18 +242,18 @@ A kernel consists of a chain of instructions, which typically contain many float
 A thread in the traditional CPU context is a chain of instructions that can operate on one or more data streams, where multiple data streams are processed in parallel using the SIMD mechanism. The instructions in the thread represent the workload of the execution units in the CPU, meaning that an instruction contains a couple of items:
 
  - The type of execution unit that should process the instruction.
- - The exact instruction that should be executed.
+ - The type of instruction that should be executed.
  - The complete set of input data locations.
  - The complete set of output data locations.
 
 A SIMT "thread" is different because it is more of an abstract concept, as it contains "incomplete" instructions:
 
  - The type of execution unit that should process the instruction.
- - The exact instruction that should be executed.
+ - The type of instruction that should be executed.
  - An incomplete set of input data locations.
  - An incomplete set of output data locations.
 
-This "incomplete" set of input and output data locations represent a single data stream of a SIMD capable execution unit, that is why a SIMT "thread" is sometimes referred to as a "SIMD lane instruction stream".
+This "incomplete" set of input and output data locations represent a single data stream of a SIMD capable execution unit, that is why a SIMT "thread" is sometimes referred to as a "SIMD lane instruction stream". A "complete" instruction would contain the input and output data locations of all the data streams that SIMD capable execution unit processes.
 
 The advantage of SIMT threads is that they are relatively intuitive, because they represent the workings of the compute kernel at the data stream level. However, they have the disadvantage that they do not have a simple mapping to the hardware that is supposed to execute them. This mapping of the threads to the "real" hardware instructions mostly comes down to grouping them such that a single group contains threads with compatible "incomplete" instruction sequences. This grouping of threads serves to fill the deep registers of the execution units and a single group of threads is called a "warp".
 
