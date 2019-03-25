@@ -261,9 +261,20 @@ The toolchain is responsible for grouping the threads into warps, which reduces 
 
 OpenCL: "thread" is equivalent to "work item" and "warp" is equivalent to "wavefront".
 
+###### Thread hierarchy
+
+GPGPU applications can generate massive amounts of threads, making it imperative to have some sort of hierarchy to these threads. The hierarchy that the GPU programming model provides aims to aid in two tasks:
+
+ - Algorithm design.
+ - Hardware resource allocation.
+
+One of the most important features available to the algorithm design process is thread identification. Each thread has a unique identifier in the form of a tuple of (non-negative) integer values, with a single tuple containing at most three elements. The amount of elements that a tuple contains can be controlled by the programmer and represents the "dimension", mimicking dimensions encountered in the underlying physics or mathematics problem that the algorithms tries to model. Even though this thread identifier appears to be very similar to a coordinate system, it differs significantly because the threads are not an ordered set. This means that the thread with identifier "(1,1,1)" does not need to be adjacent to thread "(1,1,2)", making it impossible to rely on an ordering in the algorithm design. 
+
+Hardware resource allocation is the second mayor aspect of the thread hierarchy, which is where "blocks" and "grids" come into the equation. Their main purpose is to allocate threads to the hardware constrained partitioning of the device memory pool.
+
 ###### Blocks and grids
 
-Warps are the most obvious grouping method of threads from the hardware perspective, but are not very convenient from an algorithm design point of view. 
+Grids are the highest level of the thread hierarchy, and as such represent the highest level of device memory pool partitioning.
 
 OpenCL: "block" is equivalent to "work group" and "grid" is equivalent to "NDRange".
 
