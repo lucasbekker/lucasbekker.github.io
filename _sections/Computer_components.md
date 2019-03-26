@@ -213,13 +213,13 @@ The NVIDIA Volta microarchitecture is developed specifically for GPGPU purposes,
 
 ##### Programming model
 
-The programming model of a GPU has a more layered structure than the programming model of a traditional CPU based application. The mostly embarrassingly parallel workloads intended for the GPU gave rise to a programming model that was designed from the ground up to cater to the needs of splitting up an application into many independent pieces. Some of the nomenclature found in the programming model for GPUs is manufacturer specific, but the underlying concepts are usually present in the implementations of all the manufacturers of GPUs. This text will adhere to the names as they are presented in the documentation of [NVIDIA PTX](https://docs.nvidia.com/cuda/parallel-thread-execution/index.html), but the names of the equivalent concepts within OpenCL will be be provided for convenience.
+The programming model of a GPU has a more layered structure than the programming model of a traditional CPU based application. The mostly embarrassingly parallel workloads intended for the GPU gave rise to a programming model that was designed from the ground up to cater to the needs of splitting up an application into many independent pieces. Some of the nomenclature found in the programming model for GPUs is manufacturer specific, but the underlying concepts are usually present in the implementations of all the manufacturers of GPUs. This text will adhere to the names as they are presented in the documentation of [NVIDIA PTX](https://docs.nvidia.com/cuda/parallel-thread-execution/index.html), but the names of the equivalent concepts within OpenCL will be be provided for convenience. Furthermore, it is assumed that the code constructed by the programmer is in the CUDA language, not in the intermediate representation.
 
 ###### Host and device
 
 One of the most important aspects of the GPU programming model is the distinction between host and device.
 
-GPGPU applications basically contain two parts, sections that run on the host (CPU) and sections that run on the device (GPU). This is important because they both have their own and exclusive memory pool. The GPU is unable to execute instructions on data that is stored on the "host memory" (main memory) and the CPU is unable to execute instructions on data that is stored on the device memory ([VRAM](https://en.wikipedia.org/wiki/Video_card#Video_memory)). This necessitates transferring data between host and device, which are (generally) connected via the [PCI-e](https://lucasbekker.github.io/Computer_components#pci-express) interface.
+GPGPU applications basically contain two parts, sections that run on the host (CPU) and sections that run on the device (GPU). This is important because they both have their own and exclusive memory pool. The GPU is unable to execute instructions on data that is stored on the host memory (main memory) and the CPU is unable to execute instructions on data that is stored on the device memory ([VRAM](https://en.wikipedia.org/wiki/Video_card#Video_memory)). This necessitates transferring data between host and device, which are (generally) connected via the [PCI-e](https://lucasbekker.github.io/Computer_components#pci-express) interface.
 
 Transferring data to and from the device is a time consuming operation and can easily become a bottleneck for the performance of the application. In an effort to reduce the data transfers to an absolute minimum, management of the data location has been left to the programmer, so that it can be tailored to the requirements of the algorithm of the GPGPU application.
 
@@ -246,7 +246,7 @@ A thread in the traditional CPU context is a chain of instructions that can oper
  - The complete set of input data locations.
  - The complete set of output data locations.
 
-A SIMT "thread" is different because it is more of an abstract concept, as it contains incomplete instructions:
+A SIMT thread is different because it is more of an abstract concept, as it contains incomplete instructions:
 
  - The type of execution unit that should process the instruction.
  - The type of instruction that should be executed.
@@ -268,15 +268,19 @@ GPGPU applications can generate massive amounts of threads, making it imperative
  - Algorithm design
  - Hardware resource allocation
 
-One of the most important features available to the algorithm design process is thread identification. Each thread has a unique identifier in the form of a tuple of (non-negative) integer values, with a single tuple containing at most three elements. The amount of elements that a tuple contains can be controlled by the programmer and represents the "dimension", mimicking dimensions encountered in the underlying physics or mathematics problem that the algorithms tries to model. Even though this thread identifier appears to be very similar to a coordinate system, it differs significantly because the threads are not an ordered set. This means that the thread with identifier "(1,1,1)" does not need to be adjacent to thread "(1,1,2)", making it impossible to rely on an ordering in the algorithm design. 
+One of the most important features available to the algorithm design process is thread identification. Each thread has a unique (local) identifier in the form of a tuple of (non-negative) integer values, with a single tuple containing at most three elements. The amount of elements that a tuple contains can be controlled by the programmer and represents the "dimension", mimicking dimensions encountered in the underlying physics or mathematics problem that the algorithms tries to model. Even though this thread identifier appears to be very similar to a coordinate system, it differs significantly because the threads are not an ordered set. In a one dimensional setting, this would mean that the thread with identifier "(1)" does not need to be adjacent to thread "(2)", making it impossible to rely on an ordering in the algorithm design. 
 
-Hardware resource allocation is the second mayor aspect of the thread hierarchy, which is where "blocks" and "grids" come into the equation. Their main purpose is to allocate threads to the hardware constrained partitioning of the device memory pool.
+Hardware resource allocation is the second mayor aspect of the thread hierarchy, which is where blocks and grids come into the equation. Their main purpose is to allocate threads to the hardware constrained partitioning of the device memory pool.
 
 ###### Blocks and grids
 
-Grids are the highest level of the thread hierarchy, and as such represent the highest level of memory pool partitioning. The massively parallel nature of GPGPU applications allows many of them to efficiently employ multiple GPUs, which requires a method to divide the workload. Grids fill this need by assigning the threads generated by the kernel to a grid, one for each GPU in the system.
+Grids are the highest level of the thread hierarchy, and as such represent the highest level of memory pool partitioning. The massively parallel nature of GPGPU applications allows many of them to efficiently employ multiple GPUs, which requires a method to divide the workload. Grids fill this need by assigning the threads generated by the kernel to a grid, one for each GPU (memory pool) in the system.
 
-Each segment of the workload is called a "grid"
+Blocks, or cooperative thread arrays (CTA) as the PTX documentation calls them, represent the second level of thread hierarchy and serve to divide the resources of a single GPU. Blocks containing threads are assigned (at runtime) to an available resource slot, which corresponds to an idle GPU core. If multiple blocks are assigned to the same core, they are executed using a time slicing strategy.
+
+Each core of a GPU has a modest amount of local memory, which can be accessed by the threads running on that particular core, but are inaccessible to threads that run on a different core. This shared memory can, among other things, be used to communicate between threads. This local communication path is a lot faster than communication via the (global) GPU memory, making it paramount to assign threads that need to communicate to each other to the same block.
+
+The threads contained in a grid are assigned to a number of blocks. Each block has a unique identifier, which like threads consists of a tuple of (non-negative) integer values with at most three elements. This means that the global thread identification contains at most 7 values; one for the grid identifier, at most three for the block identifier and at most three for the local thread identifier. The division of threads among the blocks of a single grid is not a responsibility of the programmer, as he/she only has implicit control. 
 
 OpenCL: "work group" is equivalent to "block" and "NDRange" is equivalent to "grid".
 
