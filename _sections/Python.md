@@ -82,7 +82,7 @@ The following serves as an example of the workflow using conda.
 
 ### CUDA development in Python
 
-CUDA development in Python focusses on two different approaches. The first tries to integrate GPU programming into Python with minimal additional code and dificulty. The aim of this approach is to provide (most of) the power of GPU's to the avarage Python developer in an almost automated maner.
+CUDA development in Python focusses on two different approaches. The first tries to integrate GPU programming into Python with minimal additional code and dificulty. The aim of this approach is to provide (most of) the power of GPUs to the avarage Python developer in an almost automated maner.
 The second approach is to provide what is basically a wrapper for the CUDA toolkit. This unleashes the full power of CUDA to the Python developer, but sacrifices ease of use for performance and features.
 
 #### Numba

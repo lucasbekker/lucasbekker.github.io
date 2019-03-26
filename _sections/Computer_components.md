@@ -7,13 +7,13 @@ title: "Computer components"
 
 ##### Basics of a CPU
 
-Processors, or CPU's, are the "beating heart" of a computer, and as such, perform many more tasks than the ones that will be discussed in this text. The focus lies on the floating point calculation capabilities and the memory subsystems, as well as the interfaces.
+Processors, or CPUs, are the "beating heart" of a computer, and as such, perform many more tasks than the ones that will be discussed in this text. The focus lies on the floating point calculation capabilities and the memory subsystems, as well as the interfaces.
 
 The traditional CPU ([Central Processing Unit](https://en.wikipedia.org/wiki/Central_processing_unit)) is an Integrated Circuit (IC) that executes the logic, [arithmetic](https://en.wikipedia.org/wiki/Arithmetic), input/output (I/O) and control operations that are prescribed by software running on the computer. As time passed, many other subsystems of computers got integrated into the processor package (die), making the functions that the traditional CPU performs only a subset of all the functions that a modern processor performs. A "core" of a modern processor is a separate unit that performs all the tasks of a traditional CPU.
 
-Modern processor cores are very diverse, complex and multi-faceted, varying wildly with ISA, microarchitecture, intended platform and manufacturer. A discussion about CPU's that would include all these variations would be impossible, necessitating a confinement. This discussion will try to be as generic as possible, but the focus lies on an Intel based server CPU of the "Skylake-SP" microarchitecture.
+Modern processor cores are very diverse, complex and multi-faceted, varying wildly with ISA, microarchitecture, intended platform and manufacturer. A discussion about CPUs that would include all these variations would be impossible, necessitating a confinement. This discussion will try to be as generic as possible, but the focus lies on an Intel based server CPU of the "Skylake-SP" microarchitecture.
 
-Intel dominates the PC/laptop as well as the HPC/Supercomputer CPU market, making the restriction towards an Intel x86-64 based CPU justified. Considering the fact that almost all Laptops and workstations contain CPU's that are (to a varying extend) derived from their server oriented counterparts, focusing the discussion around a server CPU seems logical as well. The Skylake-SP microarchitecture was chosen because it is very recent (at the time of writing), contains some very significant advancements for scientific computing workloads and is used in a cluster available to the MEFD group at the TU/e.
+Intel dominates the PC/laptop as well as the HPC/Supercomputer CPU market, making the restriction towards an Intel x86-64 based CPU justified. Considering the fact that almost all Laptops and workstations contain CPUs that are (to a varying extend) derived from their server oriented counterparts, focusing the discussion around a server CPU seems logical as well. The Skylake-SP microarchitecture was chosen because it is very recent (at the time of writing), contains some very significant advancements for scientific computing workloads and is used in a cluster available to the MEFD group at the TU/e.
 
 ##### System on a Chip
 
@@ -23,11 +23,11 @@ Modern processors are best described by the ["System on a Chip" (SoC)](https://e
  - Memory controller
  - Cache
  - Interfaces
- - Graphics (included in most consumer oriented CPU's)
+ - Graphics (included in most consumer oriented CPUs)
 
 ##### Instruction set architecture
 
-An Instruction Set Architecture ([ISA](https://en.wikipedia.org/wiki/Instruction_set_architecture)) is an abstract model of a computer and contains a collection of machine instruction definitions. Examples of common ISA's are x86-64, x86 and ARM, with x86-64 being the most common ISA for CPU's in servers, as well as consumer oriented computers.
+An Instruction Set Architecture ([ISA](https://en.wikipedia.org/wiki/Instruction_set_architecture)) is an abstract model of a computer and contains a collection of machine instruction definitions. Examples of common ISA's are x86-64, x86 and ARM, with x86-64 being the most common ISA for CPUs in servers, as well as consumer oriented computers.
 
 An ISA is one of the most important aspects of a CPU, because it forms the link between software and hardware. ISA's where introduced to make programming software easier, which could now be written in terms of ISA instructions in stead of low level [machine code](https://en.wikipedia.org/wiki/Machine_code). This made it possible to execute the same computer program on different computers, without any modification of the code.
 
@@ -61,7 +61,7 @@ Execution units of a CPU core are the parts that execute the machine instruction
 
 ###### Superscalar
 
-CPU cores have many execution units, most also have multiple execution units of the same type. Keeping all the execution units busy at the same time requires multiple instructions to be dispatched (one instruction per execution unit) simultaneously. The ability of a CPU core to dispatch multiple instructions simultaneously is called being [superscalar](https://en.wikipedia.org/wiki/Superscalar_processor), whereas CPU's that can only dispatch a single instruction are called scalar. Superscalar capabilities are a form of [instruction-level parallelism](https://en.wikipedia.org/wiki/Instruction-level_parallelism).
+CPU cores have many execution units, most also have multiple execution units of the same type. Keeping all the execution units busy at the same time requires multiple instructions to be dispatched (one instruction per execution unit) simultaneously. The ability of a CPU core to dispatch multiple instructions simultaneously is called being [superscalar](https://en.wikipedia.org/wiki/Superscalar_processor), whereas CPUs that can only dispatch a single instruction are called scalar. Superscalar capabilities are a form of [instruction-level parallelism](https://en.wikipedia.org/wiki/Instruction-level_parallelism).
 
 ###### SIMD
 
@@ -81,7 +81,7 @@ The Skylake-SP uarch contains two AVX-512 execution units, with 512 bit deep [re
 
 The Haswell and Broadwell uarch contain two AVX2 execution units, with 256 bit deep registers. Each AVX2 unit contains 4 FMA3 sub-units for "double" floating-point numbers and 8 FMA3 sub-units for "single" floating-point numbers. These AVX2 execution units form the hardware layer of the [AVX2](https://en.wikipedia.org/wiki/Advanced_Vector_Extensions#Advanced_Vector_Extensions_2) ISA extension.
 
-AMD's latest (at the time of writing) Zen architecture also supports AVX2 instructions (not AVX-512), but the hardware based implementation is completely different. It doesn't have native support for 256 bit deep registers and each AVX2 instruction takes 2 clock cycles to complete, compared to one clock cycle of Intel based AVX2 capable CPU's.
+AMD's latest (at the time of writing) Zen architecture also supports AVX2 instructions (not AVX-512), but the hardware based implementation is completely different. It doesn't have native support for 256 bit deep registers and each AVX2 instruction takes 2 clock cycles to complete, compared to one clock cycle of Intel based AVX2 capable CPUs.
 
 ##### Simultaneous multithreading
 
@@ -99,7 +99,7 @@ The clock signal of the CPU core is a square wave signal, switching between high
 
 ###### Turbo frequencies
 
-Almost all modern CPU's employ some sort of dynamic operating frequency control, allowing the operating frequency of various parts of the CPU to go up or down in conjunction with demand and thermal headroom. Dynamic scaling of the operating frequencies took a flight when mobile devices became more popular, requiring momentary high performance and long battery life. The basic idea behind these techniques is that a relatively high operating frequency can be achieved for a short duration of time. This increases performance for workloads that can be completed within the time frame of the elevated operating frequency, but doesn't significantly increase the overall heat production and power consumption of the CPU. The turbo boost technology of modern CPU's is too complex to discuss in great detail in this text, but a few important aspects pertaining to floating point performance will be explained.
+Almost all modern CPUs employ some sort of dynamic operating frequency control, allowing the operating frequency of various parts of the CPU to go up or down in conjunction with demand and thermal headroom. Dynamic scaling of the operating frequencies took a flight when mobile devices became more popular, requiring momentary high performance and long battery life. The basic idea behind these techniques is that a relatively high operating frequency can be achieved for a short duration of time. This increases performance for workloads that can be completed within the time frame of the elevated operating frequency, but doesn't significantly increase the overall heat production and power consumption of the CPU. The turbo boost technology of modern CPUs is too complex to discuss in great detail in this text, but a few important aspects pertaining to floating point performance will be explained.
 
 Specifications of the turbo frequencies are very important to the performance of a CPU, but are often reduced to a single number, masking the complete story for marketing purposes. Turbo frequencies scale down according to the workload type (normal, AVX2 and AVX512) and the amount of active cores. AVX512 workloads produce the most heat and highest power consumption because their execution units contain the most transistors, AVX2 execution units require less power and normal (non floating-point) workloads even less than that. 
 
@@ -107,14 +107,14 @@ A more detailed specification of the turbo frequencies of an Intel Xeon Gold 613
 
 #### CPU interfaces
 
-As stated earlier, modern CPU's are more akin to SoC's than traditional processors. One of the most significant advancements has been the integration of interfaces onto the CPU package. This allows for higher bandwidth and lower latencies because fewer signals have to pass over [PCB](https://en.wikipedia.org/wiki/Printed_circuit_board) traces of the [motherboard](https://en.wikipedia.org/wiki/Motherboard).
+As stated earlier, modern CPUs are more akin to SoC's than traditional processors. One of the most significant advancements has been the integration of interfaces onto the CPU package. This allows for higher bandwidth and lower latencies because fewer signals have to pass over [PCB](https://en.wikipedia.org/wiki/Printed_circuit_board) traces of the [motherboard](https://en.wikipedia.org/wiki/Motherboard).
 
 ##### Memory controller
 
 The memory controller is the connecting element between the CPU cores and the DRAM memory. Many scientific computing workloads have data sets that don't fit in the cache of the CPU, forcing extensive usage of DRAM memory. These kinds of workloads usually benefit heavily from high bandwidth and low latency main memory, making the memory controller crucial for performance. Modern memory controllers are very complex pieces of engineering and explaining their operation is well beyond the scope of this text, which will focus on their features instead. 
 
 One of the most distinguishing aspects of a memory controller is the amount of [memory channels](https://en.wikipedia.org/wiki/Multi-channel_memory_architecture) it supports.
-A memory channel is a 64-bit wide interface to a cluster of DRAM chips, usually located on a [DIMM](https://en.wikipedia.org/wiki/DIMM). The peak bandwidth can be increased by allowing parallel access to multiple memory channels, making dual channel memory twice as fast as single channel memory, while latency remains unaffected. Typical consumer PC and laptop CPU's have an integrated memory controller capable of dual channel, whereas the Intel Skylake-SP chips contain two memory controller, each supporting triple channel for an effective 6 channel memory system.
+A memory channel is a 64-bit wide interface to a cluster of DRAM chips, usually located on a [DIMM](https://en.wikipedia.org/wiki/DIMM). The peak bandwidth can be increased by allowing parallel access to multiple memory channels, making dual channel memory twice as fast as single channel memory, while latency remains unaffected. Typical consumer PC and laptop CPUs have an integrated memory controller capable of dual channel, whereas the Intel Skylake-SP chips contain two memory controller, each supporting triple channel for an effective 6 channel memory system.
 
 A second important aspect of a memory controller/system is support for [Error Correcting Code (ECC)](https://en.wikipedia.org/wiki/ECC_memory), which is a technique to detect and correct certain memory errors. The information stored in a memory cell can get corrupted by a faulty power supply or interaction with solar radiation, resulting in a "bit flip". ECC capable memory stores additional bits of [parity data](https://en.wikipedia.org/wiki/RAM_parity) to detect and (when possible) repair these corruptions. Bit flips are not very common and most consumer applications don't suffer terribly when they encounter one (system may crash), but bit flips in sensitive, long running and expensive simulations are much more problematic. That is why ECC is almost always employed in servers, despite its drawbacks (higher cost and latency).
 
@@ -129,7 +129,7 @@ PCI-express ([Peripheral Component Interconnect Express](https://en.wikipedia.or
 
 PCIe is a serial bus, introduced to replace [PCI(-X)](https://en.wikipedia.org/wiki/Conventional_PCI) and [AGP](https://en.wikipedia.org/wiki/Accelerated_Graphics_Port). The PCIe standard has seen multiple revisions (backwards compatible) over the years since its introduction, improving (among other things); bandwidth, power delivery, error correcting overhead and features. The most common implementation of the standard (at the time of writing) is version 3.x, which will be the version that this text considers.
 
-PCIe links consist of "lanes", each lane having four physical connections. Two connections for a [differential](https://en.wikipedia.org/wiki/Differential_signaling) read signal and the other two for a differential write signal, amounting to a [full-duplex](https://en.wikipedia.org/wiki/Duplex_(telecommunications)#FULL-DUPLEX) connection. A PCIe link to a device may be a grouping of multiple lanes, ranging from one to 32 lanes per link (x1, x2, x4, x8, x16, x32). GPU's are commonly connected using a x16 link, SAS controllers and NVMe storage typically use a x4/x8 link and single port NIC's have a x1 link. 
+PCIe links consist of "lanes", each lane having four physical connections. Two connections for a [differential](https://en.wikipedia.org/wiki/Differential_signaling) read signal and the other two for a differential write signal, amounting to a [full-duplex](https://en.wikipedia.org/wiki/Duplex_(telecommunications)#FULL-DUPLEX) connection. A PCIe link to a device may be a grouping of multiple lanes, ranging from one to 32 lanes per link (x1, x2, x4, x8, x16, x32). GPUs are commonly connected using a x16 link, SAS controllers and NVMe storage typically use a x4/x8 link and single port NIC's have a x1 link. 
 
 The bandwidth of a PCIe v3 x1 link is specified using Giga Transfers per second (GT/s), which specifies the amount of bits that can be transferred from the host to the client or vice versa. The PCIe v3 standard uses 128b/130b encoding for error correcting purposes, meaning that for every 130 bits transmitted, only 128 bits contain data and the remaining two bits contain a form of parity data. This means that a PCIe v3 x1 link of 8 GT/s has a bandwidth of 985 MB/s (8000 x (128/130) x (1/8) = 984.62) and a x16 link has a bandwidth of 15.75 GB/s.
 
@@ -139,9 +139,9 @@ The Direct Media Interface (DMI) interconnect is an Intel specific protocol used
 
 ##### QPI and UPI
 
-Most high-end servers allow the placement of multiple identical CPU's on the same motherboard, allowing two or four CPU's to be part of the same computer. Intel QuickPath Interconnect ([QPI](https://en.wikipedia.org/wiki/Intel_QuickPath_Interconnect)) and its successor, Intel UltraPath Interconnect ([UPI](https://en.wikipedia.org/wiki/Intel_UltraPath_Interconnect)), are interfaces primarily used for inter CPU communication on these multi socket machines.
+Most high-end servers allow the placement of multiple identical CPUs on the same motherboard, allowing two or four CPUs to be part of the same computer. Intel QuickPath Interconnect ([QPI](https://en.wikipedia.org/wiki/Intel_QuickPath_Interconnect)) and its successor, Intel UltraPath Interconnect ([UPI](https://en.wikipedia.org/wiki/Intel_UltraPath_Interconnect)), are interfaces primarily used for inter CPU communication on these multi socket machines.
 
-The bandwidth of the connection between the CPU's can be important in a number of scenarios, for example:
+The bandwidth of the connection between the CPUs can be important in a number of scenarios, for example:
 
   - Memory bandwidth starved single threaded applications.
   - Threads running on CPU-0 that need to communicate with a GPU connected to CPU-1.
@@ -153,17 +153,17 @@ The total bandwidth of a QPI/UPI connection is its transfer speed specification 
 
 ##### Basics of a GPU
 
-GPU (Graphics Processing Unit), graphics card and video card are all names for the piece of hardware inside a computer that is responsible for creating the image on the display of a PC. GPU's can be divided into two groups; dedicated and integrated. Integrated GPU's are part of the CPU SoC, whereas dedicated GPU's are separate circuitry's, often housed on their own PCB's. These separate PCB's are usually referred to as "cards", which is where the names graphics card and video card stems from.
+GPU (Graphics Processing Unit), graphics card and video card are all names for the piece of hardware inside a computer that is responsible for creating the image on the display of a PC. GPUs can be divided into two groups; dedicated and integrated. Integrated GPUs are part of the CPU SoC, whereas dedicated GPUs are separate circuitries, often housed on their own PCBs. These separate PCBs are usually referred to as "cards", which is where the names graphics card and video card stems from.
 
 It should be noted that not all computers have a GPU. Servers and embedded systems are often "headless", which means without a display. They do not explicitly require a GPU, and as such sometimes don't have one. Interfacing with these systems is often possible via a serial connection. However, not having a GPU is very uncommon these days, even for headless servers.
 
-As PC's grew more capable, the tasks placed on GPU's also grew. The traditional GPU was not much more than a [framebuffer](https://en.wikipedia.org/wiki/Framebuffer), but the introduction of graphical user interfaces and video games gave rise to 2D and 3D requirements. Filling the frame buffer with data used to be a task of the CPU, but graphics accelerators took over most of the common graphics drawing commands from the CPU. Accelerators for 2D, accelerators for 3D and the frame buffer where combined into a single device now known as a GPU.
+As PC's grew more capable, the tasks placed on GPUs also grew. The traditional GPU was not much more than a [framebuffer](https://en.wikipedia.org/wiki/Framebuffer), but the introduction of graphical user interfaces and video games gave rise to 2D and 3D requirements. Filling the frame buffer with data used to be a task of the CPU, but graphics accelerators took over most of the common graphics drawing commands from the CPU. Accelerators for 2D, accelerators for 3D and the frame buffer where combined into a single device now known as a GPU.
 
-Video gaming evolved into a huge industry, requiring ever more powerful GPU's to sustain the demand for graphical compute workloads. The hardware became capable and versatile enough to take over additional tasks from the CPU, most notably media encoding and decoding. At this point, the pattern of the GPU taking over tasks from the CPU was well established. Anticipating that this trend would only continue, reinforced by the first forays of scientific computing on the GPU by manipulating shaders, NVIDIA decided that the way in which programmers should have access to the compute capabilities of GPU's needed to change into a less graphics centered manner. This idea came to fruition in the way of Compute Unified Device Architecture, or CUDA. Other GPU manufacturers followed suit and often provide a similar architecture to CUDA.
+Video gaming evolved into a huge industry, requiring ever more powerful GPUs to sustain the demand for graphical compute workloads. The hardware became capable and versatile enough to take over additional tasks from the CPU, most notably media encoding and decoding. At this point, the pattern of the GPU taking over tasks from the CPU was well established. Anticipating that this trend would only continue, NVIDIA decided that the way in which programmers should have access to the compute capabilities of GPUs needed to change into a less graphics centered manner. This idea came to fruition in the way of Compute Unified Device Architecture, or CUDA. Other GPU manufacturers followed suit and often provide a similar architecture to CUDA.
 
 ###### System on a Chip
 
-Like modern CPU's, GPU's can also be described as systems on a chip, or SoC. They contain many of the same subsystems as modern CPU's:
+Like modern CPUs, GPUs can also be described as systems on a chip, or SoC. They contain many of the same subsystems as modern CPUs:
 
  - Cores
  - Memory controller
@@ -171,15 +171,15 @@ Like modern CPU's, GPU's can also be described as systems on a chip, or SoC. The
  - Interfaces
  - Video engine
 
-Their functions don't differ that much from their CPU counterparts, other than the fact that they are optimized for their graphics related workloads and the fact that the cores are not of the general purpose kind. This makes it impossible for a GPU to perform certain tasks, like running an operating system.
+Their functions don't differ that much from their CPU counterparts, other than the fact that they are optimized for their graphics related workloads and the fact that the cores are not of the general purpose kind. The features that GPU cores lack compared to CPU cores makes it impossible for a GPU to perform certain tasks, like running an operating system.
 
 ###### Massively parallel
 
-GPU's have a lot in common with CPU's, but the very specific workloads envisioned for GPU's caused them to be very distinctive in one aspect, they are massively parallel in nature. A typical high end CPU like the Intel Xeon Gold 6132 has a total of 28 floating point execution units, whereas a NVIDIA V100 GPU has 320 floating point execution units.
+GPUs have a lot in common with CPUs, but the very specific workloads envisioned for GPUs caused them to be very distinctive in one aspect, they are massively parallel in nature. A typical high end CPU like the Intel Xeon Gold 6132 has a total of 28 floating point execution units, whereas a NVIDIA V100 GPU has 320 floating point execution units.
 
 ###### NVIDIA
 
-There are many vendors of GPU's ([AMD](https://www.amd.com/en), [NVIDIA](https://www.nvidia.com/en-us/), [Intel](https://www.intel.com/content/www/us/en/homepage.html), [Imagination Technologies](https://www.imgtec.com/)), most of which have products capable of some sort of compute support via [OpenCL](https://www.khronos.org/opencl/). OpenCL stands for Open Compute Language and is a fully open source and portable framework for compute on CPU's and GPU's. The main competitor of OpenCL is [CUDA](https://en.wikipedia.org/wiki/CUDA), which is proprietary to NVIDIA.
+There are many vendors of GPUs ([AMD](https://www.amd.com/en), [NVIDIA](https://www.nvidia.com/en-us/), [Intel](https://www.intel.com/content/www/us/en/homepage.html), [Imagination Technologies](https://www.imgtec.com/)), most of which have products capable of some sort of compute support via [OpenCL](https://www.khronos.org/opencl/). OpenCL stands for Open Compute Language and is a fully open source and portable framework for compute on CPUs and GPUs. The main competitor of OpenCL is [CUDA](https://en.wikipedia.org/wiki/CUDA), which is proprietary to NVIDIA.
 
 CUDA is somewhat older than OpenCL and had a mature implementation before OpenCL, allowing CUDA to develop a head start with respect to the development of a GPGPU compute ecosystem. Combined with the very large dedicated graphics card market share of NVIDIA, results in CUDA being a dominant force in the GPGPU compute world. The most obvious disadvantage of this situation is vendor lock-in in NVIDIA's favor.
 
@@ -187,17 +187,17 @@ Many of the topics that will be discussed are manufacturer agnostic, but certain
 
 ##### ISA and IR
 
-The instruction set architecture of a CPU is one of its most defining aspects. The same goes for GPU's, but the effect on the end user is much less severe.
+The instruction set architecture of a CPU is one of its most defining aspects. The same goes for GPUs, but the effect on the end user is much less severe.
 
-The concept of an ISA was introduced to aid in the quest for code portability. Software was no longer written in machine specific code, but using instructions provided by the ISA. This made it possible for software to run on physically different hardware, as long as they conform to the same ISA. The ISA concept was a huge step towards code portability, but full code portability was not yet achieved. A c++ program compiled on an x86 based computer will not run on an ARM based smartphone, because they adhere to different ISA's.
+The concept of an ISA was introduced to aid in the quest for code portability. Software was no longer written in machine specific code, but using instructions provided by the ISA. This made it possible for software to run on physically different hardware, as long as they conform to the same ISA. The ISA concept was a huge step towards code portability, but full code portability was not yet achieved. A c++ program compiled on an x86 based computer will not run on an ARM based smartphone, because they adhere to different ISAs.
 
-The next step towards achieving code portability is the [process virtual machine](https://en.wikipedia.org/wiki/Virtual_machine#Process_virtual_machines), sometimes referred to as a "runtime environment". The best known example of a process virtual machine is the Java Virtual Machine, also know as JVM or JRE. A process virtual machine is a piece of software that acts as a [translation layer](https://www.utdallas.edu/~muratk/courses/cloud11f_files/smith-vm-overview.pdf) between the OS/ISA and the process virtual machine target code. All applications that are written (exclusively) in the virtual machine target code can run correctly on all platforms that have the process virtual machine available. This is why pure Python code can run both on an x86 based computer, as well as an ARM based android smartphone.
+The next step towards achieving code portability is the [process virtual machine](https://en.wikipedia.org/wiki/Virtual_machine#Process_virtual_machines), sometimes referred to as a runtime environment. The best known example of a process virtual machine is the Java Virtual Machine, also know as JVM or JRE. A process virtual machine is a piece of software that acts as a [translation layer](https://www.utdallas.edu/~muratk/courses/cloud11f_files/smith-vm-overview.pdf) between the OS/ISA and the process virtual machine target code. All applications that are written (exclusively) in the virtual machine target code can run correctly on all platforms that have the process virtual machine available. This is why pure Python code can run both on an x86 based computer, as well as an ARM based android smartphone.
 
-Code portability is an important concern for GPU's as well. GPU's from NVIDIA have a different ISA then GPU's from AMD, but users still expect that the applications they run on their computer functions correctly, irrespective of the brand of GPU that they have in their system. Achieving this goal is a complex and multifaceted task, but a large part of the solution is the "driver" of the GPU.
+Code portability is an important concern for GPUs as well. GPUs from NVIDIA have a different ISA then GPUs from AMD, but users still expect that the applications they run on their computer functions correctly, irrespective of the brand of GPU that they have in their system. Achieving this goal is a complex and multifaceted task, but a large part of the solution is the driver of the GPU.
 
-A GPU driver is at some level very comparable to a process virtual machine. It is a piece of software that acts as a translation layer between the hardware of the GPU and the "code" it receives. When this "code" is intended to manipulate the image on the screen, it is typically based on a graphics [API](https://en.wikipedia.org/wiki/Application_programming_interface) like [OpenGL](https://www.opengl.org/), [Vulkan](https://www.khronos.org/vulkan/) or [DirectX](https://en.wikipedia.org/wiki/DirectX). GPGPU applications typically make use of CUDA, OpenCL or other API's capable of GPU offloading, like modern versions of OpenMP and OpenACC.
+A GPU driver is at some level very comparable to a process virtual machine. It is a piece of software that acts as a translation layer between the hardware of the GPU and the code it receives. When this code is intended to manipulate the image on the screen, it is typically based on a graphics [API](https://en.wikipedia.org/wiki/Application_programming_interface) like [OpenGL](https://www.opengl.org/), [Vulkan](https://www.khronos.org/vulkan/) or [DirectX](https://en.wikipedia.org/wiki/DirectX). GPGPU applications typically make use of CUDA, OpenCL or other API's capable of GPU offloading, like modern versions of OpenMP and OpenACC.
 
-Because the GPU driver needs to support a plethora of API's, GPU manufacturers generally resort to a solution that contains an intermediate representation (IR). This means that the driver contains various software libraries that map the "commands" of an API to the IR and a piece of software that translates the IR to machine instructions. This IR is the closest thing to an ISA that GPU manufacturers provide, with the commonality that code written in this IR language will run on all systems that contain the IR to machine code translator, just as code compiled for a specific ISA will run on all the hardware that conforms to this ISA.
+Because the GPU driver needs to support a plethora of APIs, GPU manufacturers generally resort to a solution that contains an intermediate representation (IR). This means that the driver contains various software libraries that map the commands of an API to the IR and a piece of software that translates the IR to machine instructions. This IR is the closest thing to an ISA that GPU manufacturers provide, with the commonality that code written in this IR language will run on all systems that contain the IR to machine code translator, just as code compiled for a specific ISA will run on all the hardware that conforms to this ISA.
 
 ###### Microarchitecture and extentions
 
@@ -207,35 +207,35 @@ Extending the functionality of a CPU involves ISA extensions, like AVX2. Extendi
 
 ###### NVIDIA Volta
 
-Maintaining backwards compatibility in software is a lot more flexible then in hardware, which is one of the reasons that succeeding microarchitectures of GPU's can vary rather wildly in design. This makes it prudent to zoom in on a specific microarchitecture, namely NVIDIA [Volta](https://en.wikipedia.org/wiki/Volta_(microarchitecture)).
+Maintaining backwards compatibility in software is a lot more flexible then in hardware, which is one of the reasons that succeeding microarchitectures of GPUs can vary rather wildly in design. This makes it prudent to zoom in on a specific microarchitecture, namely NVIDIA [Volta](https://en.wikipedia.org/wiki/Volta_(microarchitecture)).
 
-The NVIDIA Volta microarchitecture is developed specifically for GPGPU purposes, and as such is (almost) exclusively used by various incarnations of the Tesla V100 card. It is capable of unrestricted half and double precision floating point operations, has special "tensor" cores and very high memory bandwidth. These features are unavailable to most other NVIDIA consumer grade GPU's (at the time of writing) and are very important to achieving high performance in various GPGPU applications.
+The NVIDIA Volta microarchitecture is developed specifically for GPGPU purposes, and as such is (almost) exclusively used by various incarnations of the Tesla V100 card. It is capable of unrestricted half and double precision floating point operations, has special "tensor" cores and very high memory bandwidth. These features are unavailable to most other NVIDIA consumer grade GPUs (at the time of writing) and are very important to achieving high performance in various GPGPU applications.
 
 ##### Programming model
 
-The programming model of a GPU has a more layered structure than the programming model of a traditional CPU based application. The mostly embarrassingly parallel workloads intended for the GPU gave rise to a programming model that was designed from the ground up to cater to the needs of splitting up an application into many independent pieces. Some of the nomenclature found in the programming model for GPU's is manufacturer specific, but the underlying concepts are usually present in the implementations of all the manufacturers of GPU's. This text will adhere to the names as they are presented in the documentation of [NVIDIA PTX](https://docs.nvidia.com/cuda/parallel-thread-execution/index.html), but the names of the equivalent concepts within OpenCL will be be provided for convenience.
+The programming model of a GPU has a more layered structure than the programming model of a traditional CPU based application. The mostly embarrassingly parallel workloads intended for the GPU gave rise to a programming model that was designed from the ground up to cater to the needs of splitting up an application into many independent pieces. Some of the nomenclature found in the programming model for GPUs is manufacturer specific, but the underlying concepts are usually present in the implementations of all the manufacturers of GPUs. This text will adhere to the names as they are presented in the documentation of [NVIDIA PTX](https://docs.nvidia.com/cuda/parallel-thread-execution/index.html), but the names of the equivalent concepts within OpenCL will be be provided for convenience.
 
 ###### Host and device
 
-One of the most important aspects of the GPU programming model is the distinction between "host" and "device".
+One of the most important aspects of the GPU programming model is the distinction between host and device.
 
-GPGPU applications basically contain two parts, sections that run on the host (CPU) and sections that run on the device (GPU). This is important because they both have their own and exclusive memory pool. The GPU is unable to execute instructions on data that is stored on the "host memory" (main memory) and the CPU is unable to execute instructions on data that is stored on the "device memory" ([VRAM](https://en.wikipedia.org/wiki/Video_card#Video_memory)). This necessitates transferring data between host and device, which are (generally) connected via the [PCI-e](https://lucasbekker.github.io/Computer_components#pci-express) interface.
+GPGPU applications basically contain two parts, sections that run on the host (CPU) and sections that run on the device (GPU). This is important because they both have their own and exclusive memory pool. The GPU is unable to execute instructions on data that is stored on the "host memory" (main memory) and the CPU is unable to execute instructions on data that is stored on the device memory ([VRAM](https://en.wikipedia.org/wiki/Video_card#Video_memory)). This necessitates transferring data between host and device, which are (generally) connected via the [PCI-e](https://lucasbekker.github.io/Computer_components#pci-express) interface.
 
 Transferring data to and from the device is a time consuming operation and can easily become a bottleneck for the performance of the application. In an effort to reduce the data transfers to an absolute minimum, management of the data location has been left to the programmer, so that it can be tailored to the requirements of the algorithm of the GPGPU application.
 
-OpenCL: "host" is equivalent to "host device" and "device" is equivalent to "compute device".
+OpenCL: "host device" is equivalent to "host" and "compute device" is equivalent to "device".
 
 ###### SPMD and kernel
 
-Single program, multiple data ([SPMD](https://en.wikipedia.org/wiki/SPMD)) is the abstraction level that forms the base of the GPU programming model. Comparing SPMD to other members of [Flynn's taxonomy](https://en.wikipedia.org/wiki/Flynn%27s_taxonomy) shows that the low level concept of "instruction" has been replaced by the high level abstraction "program". This makes it both more accessible to the uninitiated as well as applicable to a wider range of situations. The disadvantage is that the additional abstraction creates a greater distance between the concept and the implementation.
+Single program, multiple data ([SPMD](https://en.wikipedia.org/wiki/SPMD)) is the abstraction level that forms the base of the GPU programming model. Comparing SPMD to other members of [Flynn's taxonomy](https://en.wikipedia.org/wiki/Flynn%27s_taxonomy) shows that the low level concept of instruction has been replaced by the high level abstraction program. This makes it both more accessible to the uninitiated as well as applicable to a wider range of situations. The disadvantage is that the additional abstraction creates a greater distance between the concept and the implementation.
 
-SPMD is a technique that is centered around the idea that a relatively simple and data independent "program" needs to be applied to a large quantity of small data sets. This "program", which is called a [kernel](https://en.wikipedia.org/wiki/Compute_kernel) in a GPGPU setting, is executed in parallel on the small data sets, reducing the overall runtime compared to a sequential approach.
+SPMD is a technique that is centered around the idea that a relatively simple and data independent program needs to be applied to a large quantity of small data sets. This program, which is called a [kernel](https://en.wikipedia.org/wiki/Compute_kernel) in a GPGPU setting, is executed in parallel on the small data sets, reducing the overall runtime compared to a sequential approach.
 
 ###### SIMT
 
-A kernel consists of a chain of instructions, which typically contain many floating point operations if they are to be executed on the GPU. Executing these instructions efficiently on many cores and deep registers hardware, like GPU's, relies heavily on both instruction level parallelism and thread level parallelism. Combining these two forms of parallelism results in the [MIMD](https://en.wikipedia.org/wiki/MIMD) architecture as defined by Flynn's taxonomy. The problem with MIMD is that the two forms of parallelism encapsulated in MIMD require different programming techniques to utilize, which is undesirable.
+A kernel consists of a chain of instructions, which typically contain many floating point operations if they are to be executed on the GPU. Executing these instructions efficiently on many cores and deep registers hardware, like GPUs, relies heavily on both instruction level parallelism and thread level parallelism. Combining these two forms of parallelism results in the [MIMD](https://en.wikipedia.org/wiki/MIMD) architecture as defined by Flynn's taxonomy. The problem with MIMD is that the two forms of parallelism encapsulated in MIMD require different programming techniques to utilize, which is undesirable.
 
-[SIMT](https://en.wikipedia.org/wiki/Single_instruction,_multiple_threads) stands for "single instruction, multiple threads" and has been introduced by NVIDIA. It aims to provide a single execution model on hardware that concurs to the MIMD architecture, requiring only one programming technique to utilize. The effort of dividing the workload amongst the different cores and registers of the execution units is much less of a responsibility of the programmer, but more so of the [toolchain](https://en.wikipedia.org/wiki/Toolchain). GPGPU programming using CUDA relies on SIMT, where the programmer can control various aspects using concepts like "threads", "warps", "blocks" and "grids". This allows the programmer to utilize the hardware in the most effective manner, without having to resort to explicit control over registers. However, it remains important to understand that the SIMT and latency hiding techniques provided by CUDA are basically abstractions of the MIMD architecture and SMT.
+[SIMT](https://en.wikipedia.org/wiki/Single_instruction,_multiple_threads) stands for "single instruction, multiple threads" and has been introduced by NVIDIA. It aims to provide a single execution model on hardware that concurs to the MIMD architecture, requiring only one programming technique to utilize. The effort of dividing the workload amongst the different cores and registers of the execution units is much less of a responsibility of the programmer, but more so of the [toolchain](https://en.wikipedia.org/wiki/Toolchain). GPGPU programming using CUDA relies on SIMT, where the programmer can control various aspects using concepts like threads, warps, blocks and grids. This allows the programmer to utilize the hardware in the most effective manner, without having to resort to explicit control over registers. However, it remains important to understand that the SIMT and latency hiding techniques provided by CUDA are basically abstractions of the MIMD architecture and SMT.
 
 ###### Threads and warps
 
@@ -246,27 +246,27 @@ A thread in the traditional CPU context is a chain of instructions that can oper
  - The complete set of input data locations.
  - The complete set of output data locations.
 
-A SIMT "thread" is different because it is more of an abstract concept, as it contains "incomplete" instructions:
+A SIMT "thread" is different because it is more of an abstract concept, as it contains incomplete instructions:
 
  - The type of execution unit that should process the instruction.
  - The type of instruction that should be executed.
  - An incomplete set of input data locations.
  - An incomplete set of output data locations.
 
-This "incomplete" set of input and output data locations represent a single data stream of a SIMD capable execution unit, that is why a SIMT "thread" is sometimes referred to as a "SIMD lane instruction stream". A "complete" instruction would contain the input and output data locations of all the data streams that SIMD capable execution unit processes.
+This incomplete set of input and output data locations represent a single data stream of a SIMD capable execution unit, that is why a SIMT thread is sometimes referred to as a SIMD lane instruction stream. A complete instruction would contain the input and output data locations of all the data streams that SIMD capable execution unit processes.
 
-The advantage of SIMT threads is that they are relatively intuitive, because they represent the workings of the compute kernel at the data stream level. However, they have the disadvantage that they do not have a simple mapping to the hardware that is supposed to execute them. This mapping of the threads to the "real" hardware instructions mostly comes down to grouping them such that a single group contains threads with compatible "incomplete" instruction sequences. This grouping of threads serves to fill the deep registers of the execution units and a single group of threads is called a "warp".
+The advantage of SIMT threads is that they are relatively intuitive, because they represent the workings of the compute kernel at the data stream level. However, they have the disadvantage that they do not have a simple mapping to the hardware that is supposed to execute them. This mapping of the threads to the real hardware instructions mostly comes down to grouping them, such that a single group contains threads with compatible incomplete instruction sequences. This grouping of threads serves to fill the deep registers of the execution units and a single group of threads is called a warp.
 
-The toolchain is responsible for grouping the threads into warps, which reduces the workload of the programmer. The downside of this loss of explicit control is that threads that contain data dependant diverging control flow patterns, like "if else" blocks, might be grouped together in a single warp. This means that various subsections of the same warp have to perform different instructions, which is against the intended operation of warps. This problem is circumvented by applying a "mask" to the threads of a warp, defining if a thread is active or not. This ensures that all the active threads of the warp perform the same instruction, with the various differing subsections of the warp masked consecutively.
+The toolchain is responsible for grouping the threads into warps, which reduces the workload of the programmer. The downside of this loss of explicit control is that threads that contain data dependant diverging control flow patterns, like "if else" blocks, might be grouped together in a single warp. This means that various subsections of the same warp have to perform different instructions, which is against the intended operation of warps. This problem is circumvented by applying a mask to the threads of a warp, defining if a thread is active or not. This ensures that all the active threads of the warp perform the same instruction, with the various differing subsections of the warp masked consecutively.
 
-OpenCL: "thread" is equivalent to "work item" and "warp" is equivalent to "wavefront".
+OpenCL: "work item" is equivalent to "thread" and "wavefront" is equivalent to "warp".
 
 ###### Thread hierarchy
 
 GPGPU applications can generate massive amounts of threads, making it imperative to have some sort of hierarchy to these threads. The hierarchy that the GPU programming model provides aims to aid in two tasks:
 
- - Algorithm design.
- - Hardware resource allocation.
+ - Algorithm design
+ - Hardware resource allocation
 
 One of the most important features available to the algorithm design process is thread identification. Each thread has a unique identifier in the form of a tuple of (non-negative) integer values, with a single tuple containing at most three elements. The amount of elements that a tuple contains can be controlled by the programmer and represents the "dimension", mimicking dimensions encountered in the underlying physics or mathematics problem that the algorithms tries to model. Even though this thread identifier appears to be very similar to a coordinate system, it differs significantly because the threads are not an ordered set. This means that the thread with identifier "(1,1,1)" does not need to be adjacent to thread "(1,1,2)", making it impossible to rely on an ordering in the algorithm design. 
 
@@ -274,11 +274,11 @@ Hardware resource allocation is the second mayor aspect of the thread hierarchy,
 
 ###### Blocks and grids
 
-Grids are the highest level of the thread hierarchy, and as such represent the highest level of memory pool partitioning. The massively parallel nature of GPGPU applications allows many of them to efficiently employ multiple GPU's, which requires a method to divide the workload. Grids fill this need by assigning the threads generated by the kernel to a grid, one for each GPU in the system.
+Grids are the highest level of the thread hierarchy, and as such represent the highest level of memory pool partitioning. The massively parallel nature of GPGPU applications allows many of them to efficiently employ multiple GPUs, which requires a method to divide the workload. Grids fill this need by assigning the threads generated by the kernel to a grid, one for each GPU in the system.
 
 Each segment of the workload is called a "grid"
 
-OpenCL: "block" is equivalent to "work group" and "grid" is equivalent to "NDRange".
+OpenCL: "work group" is equivalent to "block" and "NDRange" is equivalent to "grid".
 
 ##### Streaming Multiprocessors
 
