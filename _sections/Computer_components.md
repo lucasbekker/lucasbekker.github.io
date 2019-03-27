@@ -286,13 +286,19 @@ OpenCL: "work group" is equivalent to "block" and "NDRange" is equivalent to "gr
 
 ##### Streaming Multiprocessors
 
-###### Superscalar
+NVIDIA GPU cores are called streaming multiprocessors, or SM for short. They represent the lowest hardware level of a GPU that can operate independently, which makes them very comparable to a core of a multi-core CPU. They also form the basis of product differentiation, as the computational power of a GPU can be increased or decreased by adding or removing SMs to/from the design. GPUs aimed at the low-end or mobile segment of the market will typically employ 2~4 SM units in their chip, whereas chips aimed at the high-end GPGPU market may contain about 80 streaming multiprocessors.
 
-###### Cache
+As stated earlier, GPU microarchitectures can vary significantly, resulting in vastly different specifications for streaming multiprocessors from different generations. This necessitates limiting the scope of the discussion somewhat to the SM design from the Volta generation, referring to the whitepapers of different microarchitectures for the details of their SM design.
+
+###### Superscalar and pipelining
+
+CPUs are said to be superscalar if they can process more then one instruction per clock tic, this is usually achieved by instruction level parallelism techniques and multiple execution units per core. GPU cores also have superscalar capabilities, but rely more on thread (warp) level parallelism to accomplish this. Each SM from the Volta generation is divided into four processing blocks, each of which has its own instruction dispatcher and set of execution units. This means that a single SM can process up to four warps at the same time, compared to a single thread (disregarding SMT) for CPU cores.
+
+Pipelining is a second technique to aid in achieving higher levels of instruction level parallelism. Each instruction is divided into multiple distinct sub-instructions (uops) that need to be executed sequentially. Every sub-instruction is processed by a different element of the execution unit, making it possible to increase the utilization of an execution unit by scheduling multiple (independent) sub-instructions to the execution unit at the same clock-tick.
+
+###### Cache and SMT
 
 ###### Cuda cores and execution units
-
-###### SMT
 
 ##### Memory
 
