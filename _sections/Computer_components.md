@@ -300,6 +300,8 @@ Separate but related to pipelining are the various techniques available to manip
 
 ###### Cache and SMT
 
+GPUs are massively parallel, high throughput and high latency devices. The first two properties are generally speaking positive, but high latency has absolutely no benefits in any situation what so ever. As a result, a lot of effort involved in GPU design is centered around latency hiding techniques. Note that this is somewhat of a different approach to latency then CPUs take. CPUs aim to reduce latency with extensive caching algorithms, hoping that the data is in fast cache when it is required. GPU designs optimize for throughput rather than latency, and as such will always have to deal with significant latency. Their approach only hides the effects of latency, without actually reducing it.
+
 ###### Cuda cores and execution units
 
 ##### Memory
