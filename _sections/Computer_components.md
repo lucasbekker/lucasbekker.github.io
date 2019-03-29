@@ -298,13 +298,22 @@ The Volta SM uses pipelining to achieve two goals; increased execution unit util
 
 Separate but related to pipelining are the various techniques available to manipulate the pipeline, which is the queue of uops waiting to be executed. Concepts like speculative execution and out-of-order execution are available to increase execution unit utilization and are commonplace in CPU designs, but generally lacking in GPU design. The main reasons that GPUs don't employ those kind of techniques is that they require a lot of silicon realestate and provide the most benefits in situations where code branching is common. Typical GPU workloads don't have a lot of code branching, which make makes the silicon realestate better spent on additional execution units. Many external references will state that GPUs don't support pipelining, when they actually mean that they don't support (some of) the pipeline manipulation techniques.
 
-###### Cache and SMT
+###### SMT and latency
 
 GPUs are massively parallel, high throughput and high latency devices. The first two properties are generally speaking positive, but high latency has absolutely no benefits in any situation what so ever. As a result, a lot of effort involved in GPU design is centered around latency hiding techniques. Note that this is somewhat of a different approach to latency then CPUs take. CPUs aim to reduce latency with extensive caching algorithms, hoping that the data is in fast cache when it is required. GPU designs optimize for throughput rather than latency, and as such will always have to deal with significant latency. Their approach only hides the effects of latency, without actually reducing it.
+
+The problem of memory latency is twofold. Firstly, a task takes longer to complete if it needs to wait on data and secondly, hardware resources like execution units are idle when they are starved by a lack of data. The first aspect is only really problematic when subsequent tasks are dependent on the completion of the first task. Otherwise, performing different tasks while waiting for the result of the first task still results in high overall throughput. However, the suggested solution to the first problem is contingent to the possibility of employing hardware resources that would otherwise be unavailable. As it happens, the second aspect of latency implies that hardware resources are idle when waiting for data. This means that the problem is solved when a mechanism is in place that could assign the idle hardware to different tasks when the initial task is waiting for data, having effectively hidden the memory latency.
+
+Context switching, provided by simultaneous multi threading (SMT), is exactly such a mechanism and provides the basis for most of the latency hiding techniques found on GPUs. The operation of SMT is not inherently different on a GPU compared to a CPU, but it is employed on a much grander scale. Typical consumer CPUs will provide SMT that makes fast context switching between two threads possible, whereas NVIDIA GPU cores can have as many as 64 warps in flight at the same time. Increasing the number of tracked contexts from two to 64 dramatically improves the odds that at least one of the contexts is not waiting for data, enhancing SMTs capabilities as a latency hiding technique.
 
 ###### Cuda cores and execution units
 
 ##### Memory
+
+This does not mean that GPUs don't have cache, because they do. However, it is configured in a very different way and its performance is optimized for other parameters than latency. The exact structure of the cache will not be discussed, instead focussing on its place in the memory subsystem of the GPU and its ramifications for algorithm design.
+
+Quintessential to the CPU memory subsystem is its "pyramid" shaped design, which is a direct consequence of being latency optimized. Conversely, the memory subsystem of a GPU is not pyramid shaped and 
+
 
 ##### Operating frequency
 
