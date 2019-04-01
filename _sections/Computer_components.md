@@ -308,9 +308,34 @@ Context switching, provided by simultaneous multi threading (SMT), is exactly su
 
 ###### CUDA cores and execution units
 
-Marketing documentation and microarchitecture whitepapers provided by NVIDIA often state the amount of CUDA cores that a particular GPU or SM contains. The nomenclature is a bit misleading, because CUDA cores are very different from GPU cores. More generally, NVIDIA very rarely provides much implementation details, referring to abstract concepts like CUDA cores and threads for their description of the hardware, rather than conventional physical concepts like SIMD lane and SIMD lane instruction. This makes it difficult to analyze the hardware, requiring educated guesses to fill the gaps in the documentation.
+Marketing documentation and microarchitecture whitepapers provided by NVIDIA often state the amount of CUDA cores that a particular GPU or SM contains. The nomenclature is a bit misleading, because CUDA cores are very different from GPU cores. More generally, NVIDIA very rarely provides much implementation details, referring to abstract concepts like CUDA cores and threads for their description of the hardware, rather than conventional "physical" concepts like SIMD lane and SIMD lane instruction. This makes it difficult to analyze the hardware, requiring educated guesses to fill the gaps in the documentation.
 
-One such gap in the documentation of NVIDIA is the partitioning of execution units within a processing block of a streaming multiprocessor. It may be that the SIMD lanes are all part of the same execution unit, but it could also be possible that they are divided over multiple execution units. 
+One such gap in the documentation of NVIDIA is the partitioning of execution units within a processing block of a streaming multiprocessor. It may be that the equivalent SIMD lanes are all part of the same execution unit, but it could also be possible that they are divided over multiple execution units. The implication of such a division would be increased flexibility, because multiple instructions could be processed simultaneously. Addressing the situation specifically for the Volta SM, my educated guess would be that all the equivalent SIMD lanes belong to the same execution unit. This is based on two clues provided by the NVIDIA documentation:
+
+ - Registers of the execution units would be 512 bit deep. (similar to Intel AVX512)
+ - Moving from two dispatch units to a single dispatch unit per processing block.
+
+Assuming that this guess is correct, the following Volta SM description would be (reasonably) accurate:
+
+ - Four processing blocks per SM.
+ - One FP64 execution unit with 8 SIMD lanes (512 bit registers) capable of FMA per processing block.
+ - One FP32 execution unit with 16 SIMD lanes (512 bit registers) capable of FMA per processing block.
+ - One INT32 execution unit with 16 SIMD lanes (512 bit registers) per processing block.
+ - Two "tensor" execution units with 4 SIMD lanes per unit per processing block.
+
+This list obviously excludes a lot of items, but includes the most relevant parts to floating point mathematics.
+
+###### Execution unit limitations
+
+Even though modern GPUs are capable of running GPGPU applications, they are not as flexible as CPUs. A lot of this is due to the high level architecture of GPUs, but some limitations are a direct consequence of low level functionality. Case in point being the less flexible execution units. It should be noted that this generally holds true for most GPUs, but the details provided in this text once again focus on the NVIDIA Volta microarchitecture.
+
+Some of the most obvious limitations are centered around FP16 and FP64 capabilities. Consumer GPUs from NVIDIA have significantly reduced FP16/FP64 performance compared to their GPGPU oriented counterparts. Reduced performance in these areas doesn't hurt the intended workflow (gaming), but aids in market segmentation. These much reduced FP16/FP64 capabilities are only in place to provide compatibility.
+
+NVIDIA uses two different kinds of FP32 execution units. The most common one is related to the CUDA core and exclusive to the consumer level GPUs, whereas the GPGPU products contain the other kind of FP32 execution units. Both of these provide FP16 capabilities, but do so in very different ways. The "GPGPU FP32 units" use a technique called [SWAR](https://en.wikipedia.org/wiki/SWAR) (speculation) to perform two FP16 operations per SIMD lane. The resulting FP16 performance is thus double that of FP32. Ever since the Pascal microarchitecture, "consumer FP32 units" have a single SIMD lane that behaves like the "GPGPU FP32 units", all the other SIMD lanes lack the SWAR capabilities, resulting in said reduced performance.
+
+As a relatively recent development (at the time of writing), FP32 execution units are no longer responsible for INT32 operations. Microarchitectures prior to NVIDIA Volta had FP32 execution units that provided INT32 support, thus lacking any dedicated INT32 execution units. The benefit of this approach is that the silicon realestate that INT32 execution units occupy can be used for more FP32 SIMD lanes. The disadvantages are that each FP32 SIMD lane requires more silicon realestate to accommodate the INT32 capabilities, but more important is the fact that pointer arithmetic cannot be processed in parallel with the floating point arithmetic, which is an obvious disadvantage for GPGPU applications.
+
+The FP64 capabilities are extremely poorly documented by NVIDIA. Consumer oriented GPUs have FP64 capabilities, but no implementation information has been released by NVIDIA since the Kepler microarchitecture. It is reasonable to assume that some form of hardware is responsible for FP64 calculations on consumer GPUs, but this has not been verified. The documentation is a lot better for the GPGPU oriented products, but still far from satisfactory. The biggest gap in the FP64 documentation is that it is indicated that the FP64 execution units cannot execute instructions in conjunction with other execution units, but no explanation is provided. 
 
 ##### Memory
 
