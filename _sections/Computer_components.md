@@ -355,10 +355,12 @@ The memory controllers of GPUs are also different than those of CPUs, but those 
 
 ##### Operating frequency
 
-###### Turbo
+The operating frequency of GPUs is a lot lower than that of CPUs. The driving force behind the very high operating frequency of CPUs is single thread performance, which is obviously much less important for GPUs. It is therefor more efficient to use a lower clock frequency, causing a much reduced power consumption per GPU core, facilitating more cores within the same power budget. GPUs also support a turbo freqency, allowing for a short term increase in the power budget, very similar to CPU turbo.
 
 ##### Interfaces
 
-###### PCI-e
+GPUs have many interfaces, but most of them have to do with display functionality, making them irrelevant to GPGPU applications. The most important interfaces are those between the GPU memory pool and the CPU memory pool, which come (at the time of writing) in the form of either PCI-e or NVLink (proprietairy to NVIDIA).
 
 ###### NVLink
+
+NVLink is an alternative to PCI-e, aimed at providing much more bandwidth. The second difference between NVLink and PCI-e is that NVLink is peer-to-peer, dropping the requirement of a central controller. This allows for much more convenient data transfers between multiple GPUs. The biggest disadvantage is its low adoption rate. This is because NVLink is only available for high cost NVIDIA GPUs and certain IBM Power CPUs. The result is that it only has a sizable market penetration in the super computer space. Personal computers or servers equiped with NVLink are few and far between, making it much less reasonable to design algorithms that are contingent on the performance benifits that NVLink provides.
